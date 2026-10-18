@@ -1,0 +1,1653 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>CPO Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a technical field guide. Sticky chapter rail on wide screens, one reading column,
+   wide figures. Colours borrowed from the cable plant: single-mode yellow, multimode aqua, copper. */
+:root{
+  --bg:#F4F6F7; --surface:#FFFFFF; --sunk:#E9EDF0;
+  --ink:#15212B; --muted:#53616D; --rule:#D5DCE1;
+  --link:#1E5A8A;
+  --smf:#E2B000; --smf-ink:#7A5B00; --smf-soft:#FBF1CC;
+  --mmf:#1F9A96; --mmf-soft:#D6F0EE;
+  --copper:#B3612A; --copper-soft:#F5E1D3;
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1419; --surface:#151D24; --sunk:#1B252E;
+    --ink:#E4E9ED; --muted:#98A6B1; --rule:#28343E;
+    --link:#80B6E6;
+    --smf:#F0C42E; --smf-ink:#F0C42E; --smf-soft:#2F2914;
+    --mmf:#4CC4BF; --mmf-soft:#14302F;
+    --copper:#DB8C55; --copper-soft:#33241A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1419; --surface:#151D24; --sunk:#1B252E;
+  --ink:#E4E9ED; --muted:#98A6B1; --rule:#28343E;
+  --link:#80B6E6;
+  --smf:#F0C42E; --smf-ink:#F0C42E; --smf-soft:#2F2914;
+  --mmf:#4CC4BF; --mmf-soft:#14302F;
+  --copper:#DB8C55; --copper-soft:#33241A;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-underline-offset:2px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--link);outline-offset:2px;border-radius:2px}
+h1,h2,h3,h4{font-family:var(--f-display);font-stretch:85%;line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.65rem,4.2vw,2.25rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.22rem;font-weight:650;margin-top:2.2rem}
+h4{font-size:1.02rem;font-weight:650}
+p{margin:0}
+.mono,code{font-family:var(--f-mono);font-size:.9em}
+.num{font-variant-numeric:tabular-nums}
+
+/* page frame */
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+.layout > *{min-width:0}
+@media (min-width:1040px){.layout{grid-template-columns:230px minmax(0,1fr);gap:56px}}
+
+/* hero */
+.hero{padding-block:48px 36px;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.hero h1{font-size:clamp(2.1rem,6vw,3.6rem);font-weight:800;font-stretch:78%;letter-spacing:-.015em;margin-top:14px;max-width:18ch}
+.hero h1 .lit{color:var(--smf-ink)}
+.hero .lede{font-size:1.14rem;color:var(--muted);max-width:62ch;margin-top:18px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:30px}
+.glance div{background:var(--surface);padding:14px 16px;min-width:0}
+.glance dt{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.glance dd{margin:4px 0 0;font-size:.95rem;line-height:1.45}
+.glance dd b{font-family:var(--f-display);font-stretch:85%;font-size:1.25rem;display:block;font-weight:700}
+.tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:22px}
+.track{border-top:3px solid var(--rule);padding-top:10px;font-size:.93rem;color:var(--muted)}
+.track b{color:var(--ink);display:block;font-family:var(--f-display);font-stretch:85%;font-size:1.02rem}
+.track.t1{border-color:var(--mmf)} .track.t2{border-color:var(--smf)} .track.t3{border-color:var(--copper)}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
+.btn{font:500 .88rem var(--f-body);background:var(--surface);color:var(--ink);border:1px solid var(--rule);padding:8px 14px;border-radius:999px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* chapter rail */
+.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)))}
+.rail ol{list-style:none;margin:0;padding:10px max(16px,env(safe-area-inset-left,0px));display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.rail ol::-webkit-scrollbar{display:none}
+.rail a{display:block;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.86rem;padding:6px 10px;border-radius:6px}
+.rail a span{font-family:var(--f-mono);font-size:.75rem;margin-right:6px;opacity:.8}
+.rail a.on{color:var(--ink);background:var(--sunk)}
+@media (min-width:1040px){
+  .rail{top:calc(env(safe-area-inset-top,0px) + 28px);align-self:start;border:0;margin:0;background:transparent;padding-top:40px}
+  .rail ol{flex-direction:column;padding:0;overflow:visible;gap:2px}
+  .rail a{white-space:normal;padding:6px 10px}
+  .rail .rail-head{display:block}
+}
+.rail-head{display:none;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 10px 10px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+
+/* chapters */
+main{min-width:0}
+.chapter{padding-block:56px 20px;border-bottom:1px solid var(--rule);scroll-margin-top:60px}
+.chapter:last-of-type{border-bottom:0}
+.ch-num{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);letter-spacing:.05em;margin-bottom:10px;display:flex;gap:10px;align-items:center}
+.ch-num::before{content:"";width:22px;height:3px;background:var(--smf);display:inline-block}
+.chapter .intro{font-size:1.1rem;color:var(--muted);margin-top:14px;max-width:64ch}
+.prose{max-width:68ch}
+.prose > * + *{margin-top:1rem}
+.prose ul,.prose ol{padding-left:1.25rem;margin-bottom:0}
+.prose li + li{margin-top:.4rem}
+.prose h3 + *{margin-top:.7rem}
+sup.ref a{font-family:var(--f-mono);font-size:.7rem;text-decoration:none;padding:0 1px}
+
+/* figures */
+figure{margin:28px 0;background:var(--surface);border:1px solid var(--rule);padding:18px 18px 14px}
+.fig-scroll{overflow-x:auto}
+.fig-scroll svg{display:block;min-width:620px;width:100%;height:auto}
+figcaption{font-size:.84rem;color:var(--muted);margin-top:10px;line-height:1.5;max-width:80ch}
+figcaption b{color:var(--ink);font-weight:600}
+svg text{font-family:var(--f-body);fill:var(--ink)}
+svg .t-muted{fill:var(--muted)}
+svg .t-mono{font-family:var(--f-mono)}
+svg .ln{stroke:var(--rule)}
+svg .ln-ink{stroke:var(--muted)}
+svg .box{fill:var(--surface);stroke:var(--muted);stroke-width:1.2}
+svg .box-sunk{fill:var(--sunk);stroke:var(--muted);stroke-width:.8}
+svg .smf{stroke:var(--smf)} svg .smf-f{fill:var(--smf)}
+svg .smf-soft{fill:var(--smf-soft)}
+svg .mmf-f{fill:var(--mmf)} svg .mmf{stroke:var(--mmf)}
+svg .cu{stroke:var(--copper)} svg .cu-f{fill:var(--copper)} svg .cu-soft{fill:var(--copper-soft)}
+
+/* specialist notes */
+details.deep{margin-top:18px;background:var(--sunk);border:1px solid var(--rule);border-radius:4px;max-width:68ch}
+details.deep summary{cursor:pointer;list-style:none;padding:11px 14px;font-family:var(--f-mono);font-size:.8rem;letter-spacing:.03em;color:var(--ink);display:flex;gap:10px;align-items:baseline}
+details.deep summary::-webkit-details-marker{display:none}
+details.deep summary::before{content:"+";font-weight:600;color:var(--smf-ink);width:10px}
+details.deep[open] summary::before{content:"−"}
+details.deep summary span{color:var(--muted)}
+details.deep .body{padding:0 16px 16px 38px;font-size:.95rem}
+details.deep .body > * + *{margin-top:.75rem}
+details.deep ul{padding-left:1.1rem;margin:0}
+
+/* callouts */
+.note{border-left:3px solid var(--mmf);padding:4px 0 4px 14px;max-width:66ch;color:var(--ink)}
+.note.cu{border-color:var(--copper)}
+.note.smf{border-color:var(--smf)}
+.note p + p{margin-top:.5rem}
+.label{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+
+/* tables */
+.table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--rule);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:640px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--rule)}
+thead th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--sunk)}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-weight:600;white-space:nowrap}
+td .sub{display:block;color:var(--muted);font-size:.82rem;font-weight:400;white-space:normal}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:.84rem}
+
+/* tags */
+.tag{display:inline-block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:3px;white-space:nowrap;vertical-align:1px}
+.tag.ship{background:var(--mmf-soft);color:var(--ink);border:1px solid var(--mmf)}
+.tag.ann{background:var(--smf-soft);color:var(--ink);border:1px solid var(--smf)}
+.tag.proj{background:transparent;color:var(--muted);border:1px dashed var(--muted)}
+.tag.std{background:var(--sunk);color:var(--ink);border:1px solid var(--rule)}
+</style>
+<style>
+/* timeline */
+.timeline{list-style:none;margin:28px 0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:2px;background:var(--rule)}
+.timeline > li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:28px;padding-bottom:26px;position:relative}
+.timeline > li::after{content:"";position:absolute;left:53px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--smf)}
+.timeline > li.future::after{border-style:dashed;border-color:var(--muted)}
+.timeline .yr{font-family:var(--f-display);font-stretch:80%;font-weight:700;font-size:1.25rem;line-height:1.1}
+.timeline ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.timeline ul li{font-size:.95rem;line-height:1.5}
+.timeline ul li .tag{margin-right:6px}
+
+/* company map */
+.layer{display:grid;grid-template-columns:1fr;gap:4px 24px;padding:16px 0;border-top:1px solid var(--rule)}
+@media (min-width:720px){.layer{grid-template-columns:210px minmax(0,1fr)}}
+.layer h4{font-size:.98rem}
+.layer h4 small{display:block;font-family:var(--f-body);font-weight:400;font-stretch:100%;color:var(--muted);font-size:.84rem;margin-top:3px;line-height:1.4}
+.co{display:flex;flex-wrap:wrap;gap:6px 8px}
+.co a,.co span{font-size:.88rem;padding:4px 10px;border:1px solid var(--rule);border-radius:999px;text-decoration:none;color:var(--ink);background:var(--surface);white-space:nowrap}
+.co a:hover{border-color:var(--link);color:var(--link)}
+.co a.eu{border-color:var(--smf)}
+.co-legend{font-size:.84rem;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.co-legend i{display:inline-block;width:18px;height:10px;border-radius:5px;border:1px solid var(--smf);vertical-align:0;margin-right:6px}
+
+/* challenge list */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:26px 0}
+.ch-grid > div{background:var(--surface);padding:16px 18px;min-width:0}
+.ch-grid h4{display:flex;gap:10px;align-items:baseline}
+.ch-grid h4 .sev{font-family:var(--f-mono);font-size:.68rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-left:auto;white-space:nowrap}
+.ch-grid p{font-size:.92rem;margin-top:6px;color:var(--ink)}
+.ch-grid p.opp{color:var(--muted);font-size:.86rem;margin-top:8px}
+.ch-grid p.opp::before{content:"Opening: ";font-family:var(--f-mono);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--smf-ink)}
+
+/* fit ratings */
+.dots{display:inline-flex;gap:3px;vertical-align:middle}
+.dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--muted)}
+.dots i.f{background:var(--ink);border-color:var(--ink)}
+
+/* glossary */
+.gl-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px}
+.gl-tools input{flex:1 1 240px;min-width:0;font:400 1rem var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:10px 12px}
+.gl-tools input:focus{outline:2px solid var(--link);outline-offset:1px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font:500 .8rem var(--f-body);background:var(--surface);color:var(--muted);border:1px solid var(--rule);border-radius:999px;padding:5px 11px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.gl-count{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);margin-top:12px}
+dl.gl{margin:10px 0 0;display:grid;grid-template-columns:1fr;border-top:1px solid var(--rule)}
+@media (min-width:760px){dl.gl{grid-template-columns:1fr 1fr;column-gap:32px}}
+dl.gl div{padding:12px 0;border-bottom:1px solid var(--rule);min-width:0}
+dl.gl dt{font-weight:600;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+dl.gl dt small{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:400}
+dl.gl dd{margin:3px 0 0;font-size:.92rem;color:var(--ink)}
+
+/* sources */
+ol.src{font-size:.86rem;padding-left:1.6rem;columns:1;max-width:none}
+@media (min-width:900px){ol.src{columns:2;column-gap:36px}}
+ol.src li{break-inside:avoid;margin-bottom:8px;color:var(--muted)}
+ol.src li:target{background:var(--smf-soft);color:var(--ink)}
+ol.src a{word-break:break-word}
+
+
+/* tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);padding-top:14px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{font:650 1rem var(--f-display);font-stretch:85%;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;padding:10px 14px 9px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--smf)}
+.hero-sm h1{max-width:22ch}
+ul.plain{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:7px;color:var(--ink)}
+ul.plain li{padding-left:14px;position:relative;line-height:1.5}
+ul.plain li::before{content:"";position:absolute;left:0;top:.65em;width:6px;height:1.5px;background:var(--muted)}
+.filters{display:grid;gap:10px;margin-top:22px}
+.opp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:14px;margin-top:12px}
+.oc{background:var(--surface);border:1px solid var(--rule);padding:16px 18px 14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.oc > header{display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+.oc h4{font-size:1.06rem}
+.oc dl{margin:0;display:grid;gap:9px;flex:1}
+.oc dl div{display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px}
+.oc dt{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.oc dd{margin:0;font-size:.9rem;line-height:1.5}
+.oc > footer{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--rule);padding:10px 0 0;font-size:.8rem;color:var(--muted)}
+.area{display:inline-flex;align-items:center;gap:7px}
+.area::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--muted)}
+.a-pack::before{background:var(--mmf)} .a-mat::before{background:var(--smf)} .a-dev::before{background:var(--copper)} .a-svc::before{background:var(--muted)}
+.bar{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase}
+.empty{margin-top:16px;color:var(--muted)}
+ol.checklist{margin:24px 0 0;padding-left:1.4rem;display:grid;gap:12px;max-width:70ch}
+ol.checklist li{padding-left:4px}
+.rail-extra{display:none}
+@media (min-width:1040px){.rail-extra{display:block;margin-top:18px;padding:12px 10px 0;border-top:1px solid var(--rule);font-size:.86rem}}
+
+footer{padding-block:40px 60px;color:var(--muted);font-size:.86rem;border-top:1px solid var(--rule)}
+</style>
+
+<div class="wrap">
+<div class="tabs" id="tabs" role="tablist" aria-label="Page sections">
+  <button type="button" role="tab" id="tab-guide" aria-controls="guide" aria-selected="true">Field guide</button>
+  <button type="button" role="tab" id="tab-opps" aria-controls="opportunities" aria-selected="false">Challenges and opportunities</button>
+</div>
+<div id="guide" class="panel" role="tabpanel" aria-labelledby="tab-guide">
+<header class="hero">
+  <div class="eyebrow">A field guide to co-packaged optics · Updated 18 October 2026</div>
+  <h1>Co-packaged optics, from <span class="lit">first photon</span> to startup thesis</h1>
+  <p class="lede">AI clusters now spend as much effort moving data as computing it. This guide explains why the industry is moving the optics onto the chip package, how the technology works, what the numbers are today, where the roadmap points to 2036, and where a small photonics team could build a company.</p>
+
+  <dl class="glance">
+    <div><dt>Largest CPO switch shipping</dt><dd><b class="num">102.4 Tb/s</b>Broadcom Tomahawk 6 Davisson, 16 optical engines of 6.4 Tb/s<sup class="ref"><a href="#s2">2</a>,<a href="#s3">3</a></sup></dd></div>
+    <div><dt>Lane rate in volume</dt><dd><b class="num">200 Gb/s</b>per lane, standardised in IEEE 802.3dj; 400G per lane now in the lab<sup class="ref"><a href="#s16">16</a>,<a href="#s18">18</a></sup></dd></div>
+    <div><dt>Pluggable flagship</dt><dd><b class="num">1.6 Tb/s</b>modules ramping in 2026; 3.2 Tb/s demonstrated<sup class="ref"><a href="#s19">19</a></sup></dd></div>
+    <div><dt>Cloud capex, 2026</dt><dd><b class="num">≈ $830 B</b>top nine cloud providers, TrendForce estimate<sup class="ref"><a href="#s27">27</a></sup></dd></div>
+  </dl>
+
+  <div class="tracks">
+    <div class="track t1"><b>New to the field</b>Read chapters 1 to 4 in order and keep the glossary open. Skip the specialist notes.</div>
+    <div class="track t2"><b>Expert in the field</b>Skim 1 to 2, open every specialist note, then focus on 4, 7 and 8.</div>
+    <div class="track t3"><b>Building a company</b>Open the <a href="#opportunities">Challenges and opportunities</a> tab, then read chapters 5, 8 and 10. Return to the physics as needed.</div>
+  </div>
+  <div class="controls">
+    <button class="btn" id="toggleDeep" type="button" aria-pressed="false">Open all specialist notes</button>
+    <a class="btn" href="#glossary" style="text-decoration:none">Jump to glossary</a>
+    <a class="btn" href="#opportunities" style="text-decoration:none">Challenges and opportunities</a>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="rail" aria-label="Chapters">
+  <span class="rail-head">Chapters</span>
+  <ol id="railList">
+    <li><a href="#why"><span>01</span>The interconnect wall</a></li>
+    <li><a href="#physics"><span>02</span>Building blocks</a></li>
+    <li><a href="#arch"><span>03</span>Pluggable, CPO and OCS</a></li>
+    <li><a href="#metrics"><span>04</span>Metrics and KPIs</a></li>
+    <li><a href="#now"><span>05</span>State of play, 2026</a></li>
+    <li><a href="#standards"><span>06</span>Standards and bodies</a></li>
+    <li><a href="#roadmap"><span>07</span>Roadmap to 2036</a></li>
+    <li><a href="#hir"><span>HIR</span>IEEE roadmap view</a></li>
+    <li><a href="#challenges"><span>08</span>Hard problems</a></li>
+    <li><a href="#players"><span>09</span>Who's who</a></li>
+    <li><a href="#startup"><span>10</span>Where a startup fits</a></li>
+    <li><a href="#glossary"><span>11</span>Glossary</a></li>
+    <li><a href="#sources"><span>12</span>Sources</a></li>
+  </ol>
+  <div class="rail-extra"><a href="#opportunities">Challenges and opportunities →</a></div>
+</nav>
+
+<main>
+
+<!-- 01 -->
+<section class="chapter" id="why">
+  <div class="ch-num">Chapter 01</div>
+  <h2>The interconnect wall</h2>
+  <p class="intro">Training a frontier model means thousands to hundreds of thousands of accelerators acting as one machine. They exchange gradients and activations constantly, so the network decides how much of the expensive compute actually gets used.</p>
+
+  <div class="prose" style="margin-top:22px">
+    <p>Every link in an AI data center has to balance four things: <b>bandwidth</b>, <b>reach</b>, <b>energy</b> and <b>cost</b>. Copper wins on cost and reliability over short distances. As the signal rate per wire rises, copper loses strength faster at high frequencies, so its usable reach shrinks with every speed step. At 200 Gb/s per lane, passive copper cables reach roughly one to two metres; at 224G-class electrical signalling, studies put it under one metre<sup class="ref"><a href="#s41">41</a></sup>. Beyond that, the link has to be optical.</p>
+    <p>The industry splits AI networking into three domains, and you will see these words in every vendor presentation:</p>
+    <ul>
+      <li><b>Scale-up</b>: a small group of GPUs (72 to over 1,000) wired so tightly that they behave like one giant GPU with shared memory. Nvidia's NVLink is the dominant example. Today this is mostly copper inside one rack.</li>
+      <li><b>Scale-out</b>: thousands of those groups connected through switches, over Ethernet or InfiniBand. This is already optical and is where CPO ships first.</li>
+      <li><b>Scale-across</b>: linking separate halls or whole data centers kilometres apart, using longer-reach and coherent optics.</li>
+    </ul>
+  </div>
+
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 780 272" role="img" aria-labelledby="f1t">
+      <title id="f1t">Link distances in an AI data center, on a logarithmic scale from one millimetre to ten kilometres, showing where copper works and where optics take over.</title>
+      <!-- grid -->
+      <g class="ln" stroke-width="1">
+        <line x1="60" y1="20" x2="60" y2="232"/><line x1="154.3" y1="20" x2="154.3" y2="232"/><line x1="248.6" y1="20" x2="248.6" y2="232"/><line x1="342.9" y1="20" x2="342.9" y2="232"/><line x1="437.2" y1="20" x2="437.2" y2="232"/><line x1="531.5" y1="20" x2="531.5" y2="232"/><line x1="625.8" y1="20" x2="625.8" y2="232"/><line x1="720" y1="20" x2="720" y2="232"/>
+      </g>
+      <!-- domains -->
+      <g font-size="12">
+        <rect x="60" y="30" width="160" height="12" rx="2" class="box-sunk"/>
+        <text x="60" y="24">In package · chiplets</text>
+        <rect x="220" y="62" width="95" height="12" rx="2" class="box-sunk"/>
+        <text x="220" y="56">Board · ASIC to faceplate</text>
+        <rect x="315" y="94" width="73" height="12" rx="2" class="box-sunk"/>
+        <rect x="388" y="94" width="49" height="12" rx="2" fill="none" class="ln-ink" stroke-dasharray="3 3"/>
+        <text x="315" y="88">Scale-up · GPU to GPU</text>
+        <rect x="388" y="126" width="209" height="12" rx="2" class="box-sunk"/>
+        <text x="388" y="120">Scale-out · rack to rack</text>
+        <rect x="597" y="158" width="123" height="12" rx="2" class="box-sunk"/>
+        <text x="720" y="152" text-anchor="end">Scale-across</text>
+      </g>
+      <!-- media bands -->
+      <rect x="60" y="188" width="311" height="10" rx="5" class="cu-f"/>
+      <text x="64" y="183" font-size="11.5" class="t-muted">Copper: traces and cables, falling reach at each speed step</text>
+      <rect x="343" y="208" width="377" height="10" rx="5" class="smf-f"/>
+      <line x1="154" y1="213" x2="343" y2="213" class="smf" stroke-width="3" stroke-dasharray="6 5"/>
+      <text x="154" y="230" font-size="11.5" class="t-muted">Optics moving inward: CPO, then optical I/O</text>
+      <text x="720" y="230" font-size="11.5" class="t-muted" text-anchor="end">Fiber optics</text>
+      <!-- axis labels -->
+      <g font-size="11" class="t-mono t-muted" text-anchor="middle">
+        <text x="60" y="256">1 mm</text><text x="154.3" y="256">1 cm</text><text x="248.6" y="256">10 cm</text><text x="342.9" y="256">1 m</text><text x="437.2" y="256">10 m</text><text x="531.5" y="256">100 m</text><text x="625.8" y="256">1 km</text><text x="720" y="256">10 km+</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>Figure 1. Where each link lives.</b> Logarithmic distance scale. The dashed part of the scale-up band marks multi-rack scale-up domains (for example 576 or 1,152 GPUs), which need optics. CPO pulls the electrical-to-optical conversion from the faceplate into the package.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Why power is the real driver</h3>
+    <p>Data centers are now limited by how much electricity they can get, more than by land or money. Any watt spent on moving bits is a watt not spent on compute. TechInsights estimates that pluggable transceivers alone would draw more than 2.5 GW across AI data centers by 2030 if the architecture did not change<sup class="ref"><a href="#s26">26</a></sup>.</p>
+    <p>A quick example makes this concrete. A 102.4 Tb/s switch filled with 64 pluggable 1.6T modules at roughly 25 to 30 W each spends 1.6 to 1.9 kW on optics. That can exceed the switch chip itself. Multiply by thousands of switches and every GPU's network ports, and you get tens of megawatts.</p>
+    <p>CPO attacks the part of that power that does no useful optical work: driving electrical signals across centimetres of circuit board, and cleaning them up again with a DSP. Broadcom reports about 70% lower optical interconnect power for its 51.2T CPO generation compared with pluggables<sup class="ref"><a href="#s33">33</a></sup>. Nvidia claims up to 5× lower power for its CPO switches<sup class="ref"><a href="#s34">34</a></sup>.</p>
+  </div>
+
+  <details class="deep">
+    <summary>Specialist note <span>· energy accounting, and why "pJ/bit" needs a definition</span></summary>
+    <div class="body">
+      <p>pJ/bit equals watts divided by Tb/s, so a 16 W 800G module is 20 pJ/bit and a 6.4 Tb/s engine at 32 W is 5 pJ/bit. Vendors draw the boundary differently:</p>
+      <ul>
+        <li>Is the <b>host SerDes</b> power counted? In a pluggable link, the ASIC-side long-reach SerDes is often excluded, which flatters the module figure.</li>
+        <li>Is the <b>laser</b> counted at optical output or at wall-plug? External CW lasers at 20 to 30% wall-plug efficiency can add 1 to 2 pJ/bit.</li>
+        <li>Is <b>FEC</b> counted, and is the link one-way or round trip?</li>
+      </ul>
+      <p>When you compare numbers in a pitch deck or paper, normalise to "end-to-end, host SerDes to host SerDes, including laser wall-plug and FEC". That is the figure a hyperscaler's power budget actually sees.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 02 -->
+<section class="chapter" id="physics">
+  <div class="ch-num">Chapter 02</div>
+  <h2>The building blocks of an optical link</h2>
+  <p class="intro">Every optical link, whether in a pluggable module or a co-packaged engine, does the same job: turn a fast electrical signal into modulated light, carry it, and turn it back.</p>
+
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 760 262" role="img" aria-labelledby="f2t">
+      <title id="f2t">Block diagram of an optical link: host SerDes, DSP, driver, modulator fed by a continuous-wave laser, fiber, photodiode, transimpedance amplifier, DSP and receiving SerDes.</title>
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--muted)"/></marker>
+      </defs>
+      <text x="20" y="18" font-size="11" class="t-mono t-muted">TRANSMIT</text>
+      <text x="20" y="176" font-size="11" class="t-mono t-muted">RECEIVE</text>
+      <!-- TX row -->
+      <rect x="20" y="28" width="118" height="48" rx="4" class="box"/>
+      <text x="79" y="49" font-size="12.5" text-anchor="middle" font-weight="600">Host SerDes</text>
+      <text x="79" y="65" font-size="11" text-anchor="middle" class="t-muted">in switch / GPU</text>
+      <rect x="168" y="28" width="118" height="48" rx="4" class="box" stroke-dasharray="5 4"/>
+      <text x="227" y="49" font-size="12.5" text-anchor="middle" font-weight="600">DSP / retimer</text>
+      <text x="227" y="65" font-size="11" text-anchor="middle" class="t-muted">dropped in LPO, CPO</text>
+      <rect x="316" y="28" width="118" height="48" rx="4" class="box"/>
+      <text x="375" y="49" font-size="12.5" text-anchor="middle" font-weight="600">Driver</text>
+      <text x="375" y="65" font-size="11" text-anchor="middle" class="t-muted">voltage swing</text>
+      <rect x="464" y="28" width="118" height="48" rx="4" class="box" style="stroke:var(--smf);stroke-width:2"/>
+      <text x="523" y="49" font-size="12.5" text-anchor="middle" font-weight="600">Modulator</text>
+      <text x="523" y="65" font-size="11" text-anchor="middle" class="t-muted">MZM, ring, EAM</text>
+      <line x1="138" y1="52" x2="166" y2="52" class="ln-ink" stroke-width="1.4" marker-end="url(#ar)"/>
+      <line x1="286" y1="52" x2="314" y2="52" class="ln-ink" stroke-width="1.4" marker-end="url(#ar)"/>
+      <line x1="434" y1="52" x2="462" y2="52" class="ln-ink" stroke-width="1.4" marker-end="url(#ar)"/>
+      <!-- laser -->
+      <rect x="464" y="104" width="118" height="40" rx="4" class="box"/>
+      <text x="523" y="121" font-size="12.5" text-anchor="middle" font-weight="600">CW laser</text>
+      <text x="523" y="136" font-size="11" text-anchor="middle" class="t-muted">InP, often external</text>
+      <line x1="523" y1="104" x2="523" y2="79" class="smf" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+      <!-- fiber -->
+      <path d="M582 52 H 700 Q 728 52 728 80 V 190 Q 728 218 700 218 H 584" fill="none" class="smf" stroke-width="5" stroke-linecap="round"/>
+      <text x="740" y="140" font-size="11.5" class="t-muted" transform="rotate(90 740 140)" text-anchor="middle">single-mode fiber</text>
+      <!-- RX row -->
+      <rect x="464" y="194" width="118" height="48" rx="4" class="box" style="stroke:var(--smf);stroke-width:2"/>
+      <text x="523" y="215" font-size="12.5" text-anchor="middle" font-weight="600">Photodiode</text>
+      <text x="523" y="231" font-size="11" text-anchor="middle" class="t-muted">Ge on Si, InP</text>
+      <rect x="316" y="194" width="118" height="48" rx="4" class="box"/>
+      <text x="375" y="215" font-size="12.5" text-anchor="middle" font-weight="600">TIA</text>
+      <text x="375" y="231" font-size="11" text-anchor="middle" class="t-muted">current to voltage</text>
+      <rect x="168" y="194" width="118" height="48" rx="4" class="box" stroke-dasharray="5 4"/>
+      <text x="227" y="215" font-size="12.5" text-anchor="middle" font-weight="600">DSP / retimer</text>
+      <text x="227" y="231" font-size="11" text-anchor="middle" class="t-muted">equalise, CDR</text>
+      <rect x="20" y="194" width="118" height="48" rx="4" class="box"/>
+      <text x="79" y="215" font-size="12.5" text-anchor="middle" font-weight="600">Host SerDes</text>
+      <text x="79" y="231" font-size="11" text-anchor="middle" class="t-muted">far end</text>
+      <line x1="462" y1="218" x2="436" y2="218" class="ln-ink" stroke-width="1.4" marker-end="url(#ar)"/>
+      <line x1="314" y1="218" x2="288" y2="218" class="ln-ink" stroke-width="1.4" marker-end="url(#ar)"/>
+      <line x1="166" y1="218" x2="140" y2="218" class="ln-ink" stroke-width="1.4" marker-end="url(#ar)"/>
+    </svg>
+    </div>
+    <figcaption><b>Figure 2. One direction of one lane.</b> Yellow elements carry light. The dashed DSP blocks are where most of a pluggable module's power goes; linear and co-packaged designs remove them and lean on the host SerDes instead.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Light sources</h3>
+    <p>Silicon cannot emit light efficiently, so lasers come from III-V semiconductors, mostly indium phosphide (InP). Pluggables use <b>EMLs</b> (a laser with a built-in electro-absorption modulator) or <b>DFB</b> lasers. Silicon photonics and CPO use <b>continuous-wave (CW)</b> lasers that just shine steadily, with a separate modulator on the chip. For CPO, a few high-power CW lasers (300 to 800 mW class) feed many channels, and they usually sit outside the hot package in replaceable front-panel modules called <b>ELSFP</b>. Short multimode links use cheap <b>VCSELs</b>.</p>
+
+    <h3>Modulators</h3>
+    <p>The modulator imprints data on the light. The main types are the <b>Mach-Zehnder modulator</b> (MZM: robust and broadband, but long and power-hungry), the <b>micro-ring modulator</b> (tiny and efficient, but extremely temperature-sensitive) and the <b>electro-absorption modulator</b> (EAM). New materials push speed higher: <b>thin-film lithium niobate</b> (TFLN) reaches over 110 GHz bandwidth with drive voltages below 3 V<sup class="ref"><a href="#s45">45</a>,<a href="#s46">46</a></sup>, and barium titanate (BTO) and polymers are in development.</p>
+
+    <h3>Waveguides, couplers, fiber</h3>
+    <p>On-chip, light travels in silicon or silicon-nitride waveguides. ST's PIC100 platform, for example, reports losses around 0.4 dB/cm in silicon and 0.5 dB/cm in silicon nitride<sup class="ref"><a href="#s12">12</a></sup>. Getting light from a micron-sized waveguide into a 9 µm fiber core is done with <b>grating couplers</b> (surface-emitting, easy to test on wafer, narrower bandwidth) or <b>edge couplers</b> (broadband and lower loss, but harder to align and test). Data-center links mostly use single-mode fiber in the <b>O-band</b> around 1310 nm, where fiber dispersion is near zero.</p>
+
+    <h3>Signalling: lanes, PAM4, SerDes, FEC</h3>
+    <p>A <b>lane</b> is one independent channel. Today's lanes use <b>PAM4</b>, four signal levels carrying two bits per symbol, so a 200G lane runs at about 106 gigabaud. The <b>SerDes</b> on the host chip creates and receives these signals, and <b>forward error correction (FEC)</b> adds redundancy so the receiver can fix bit errors. Wavelength-division multiplexing (<b>WDM</b>) lets several lanes share one fiber on different wavelengths.</p>
+  </div>
+
+  <details class="deep">
+    <summary>Specialist note <span>· ring modulators, thermal drift and the materials question</span></summary>
+    <div class="body">
+      <p>Silicon's thermo-optic coefficient is about 1.8 × 10⁻⁴ K⁻¹, so a silicon micro-ring resonance drifts roughly 70 to 80 pm/K. Next to a switch ASIC whose local temperature can swing by tens of kelvin, that is many linewidths. Rings therefore need heaters and closed-loop locking, which costs power (often 1 pJ/bit or more) and control complexity.</p>
+      <p>Approaches being explored: overcladding with a material of <b>negative thermo-optic coefficient</b> (TiO₂ is the classic example, around −1 × 10⁻⁴ K⁻¹) to make the ring athermal; more efficient heaters with thermal isolation trenches; and MZM or TFLN designs that are less sensitive to temperature. This is directly relevant to a team with ALD TiO₂ capability (see chapter 10).</p>
+      <p>Other open materials questions for CPO: low-loss SiN for passive routing and couplers, hermetic or near-hermetic passivation of InP lasers and facets, and adhesives and index-matching materials that survive reflow and years at 85 °C or more.</p>
+    </div>
+  </details>
+
+  <details class="deep">
+    <summary>Specialist note <span>· a short-reach link budget</span></summary>
+    <div class="body">
+      <p>For a 500 m DR-type link at 200G/lane, a typical allocation looks like this: transmitter launch power a few dBm per lane; fiber loss about 0.2 dB over 500 m; two to four connectors at 0.3 to 0.5 dB each; fiber-to-chip coupling at each end of 1 to 3 dB depending on coupler type; plus penalties for dispersion, reflection and modulator extinction ratio. Connector count and cleanliness usually dominate over fiber length in short-reach links<sup class="ref"><a href="#s17">17</a></sup>.</p>
+      <p>CPO changes the budget: the laser now sits metres away in an ELSFP, adding a connector and fiber in the laser path and splitting one laser across several channels. That is why vendors push laser power toward 400 to 800 mW<sup class="ref"><a href="#s19">19</a></sup>, and why coupling loss on the PIC is the critical number.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 03 -->
+<section class="chapter" id="arch">
+  <div class="ch-num">Chapter 03</div>
+  <h2>From pluggable to co-packaged, and where OCS fits</h2>
+  <p class="intro">There is a spectrum of designs between a plug-in module at the front panel and optics sitting inside the processor package. Each step shortens the electrical path and saves power, and each step gives up some serviceability.</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Architecture</th><th>Where the optics sit</th><th>Electrical path from ASIC</th><th>DSP in the module</th><th>Field replaceable</th><th>Status, Oct 2026</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Retimed pluggable<span class="sub">FRO, "fully retimed optics"</span></td><td>Front-panel module (OSFP, QSFP-DD)</td><td>15 to 30 cm of PCB</td><td>Yes, both directions</td><td>Yes, hot-swap</td><td><span class="tag ship">Volume</span></td></tr>
+      <tr><td class="k">LRO<span class="sub">linear receive optics</span></td><td>Front panel</td><td>15 to 30 cm</td><td>Transmit only</td><td>Yes</td><td><span class="tag ship">Early volume</span></td></tr>
+      <tr><td class="k">LPO<span class="sub">linear pluggable optics</span></td><td>Front panel</td><td>15 to 30 cm, tightly specified</td><td>No</td><td>Yes</td><td><span class="tag ship">Niche volume</span></td></tr>
+      <tr><td class="k">NPO / OBO<span class="sub">near-package, on-board</span></td><td>Socket on the board next to the package</td><td>A few cm</td><td>No</td><td>Yes, socketed</td><td><span class="tag ann">Sampling</span></td></tr>
+      <tr><td class="k">CPO<span class="sub">co-packaged optics</span></td><td>Optical engines on the ASIC substrate</td><td>Millimetres</td><td>No</td><td>Lasers yes, engines rarely</td><td><span class="tag ship">Shipping in switches</span></td></tr>
+      <tr><td class="k">Optical I/O<span class="sub">in-package chiplet</span></td><td>Chiplet next to GPU/XPU die, often via UCIe</td><td>Sub-millimetre</td><td>No</td><td>No</td><td><span class="tag ann">Pre-volume</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 720 330" role="img" aria-labelledby="f3t">
+      <title id="f3t">Top view of a co-packaged optics switch: a switch ASIC in the centre of a package substrate, surrounded by sixteen optical engines, with fibers running to front-panel connectors and external laser modules.</title>
+      <!-- front panel -->
+      <rect x="20" y="30" width="56" height="270" rx="3" class="box-sunk"/>
+      <text x="48" y="22" font-size="11" text-anchor="middle" class="t-mono t-muted">FRONT PANEL</text>
+      <g>
+        <rect x="28" y="48" width="40" height="30" rx="3" style="fill:var(--mmf-soft);stroke:var(--mmf)"/>
+        <rect x="28" y="88" width="40" height="30" rx="3" style="fill:var(--mmf-soft);stroke:var(--mmf)"/>
+        <text x="48" y="136" font-size="10" text-anchor="middle" class="t-muted">ELSFP</text>
+        <text x="48" y="148" font-size="10" text-anchor="middle" class="t-muted">lasers</text>
+        <rect x="30" y="172" width="36" height="20" rx="2" class="box"/>
+        <rect x="30" y="200" width="36" height="20" rx="2" class="box"/>
+        <rect x="30" y="228" width="36" height="20" rx="2" class="box"/>
+        <rect x="30" y="256" width="36" height="20" rx="2" class="box"/>
+        <text x="48" y="292" font-size="10" text-anchor="middle" class="t-muted">fiber ports</text>
+      </g>
+      <!-- laser feed fibers -->
+      <path d="M68 63 C 180 63, 200 83, 312 83" fill="none" class="smf" stroke-width="2" stroke-dasharray="5 4"/>
+      <path d="M68 103 C 180 103, 200 141, 312 141" fill="none" class="smf" stroke-width="2" stroke-dasharray="5 4"/>
+      <!-- data fibers -->
+      <path d="M66 182 C 180 182, 200 199, 312 199" fill="none" class="smf" stroke-width="2.5"/>
+      <path d="M66 210 C 180 210, 200 257, 312 257" fill="none" class="smf" stroke-width="2.5"/>
+      <path d="M66 238 C 200 238, 260 300, 343 290" fill="none" class="smf" stroke-width="2.5"/>
+      <path d="M66 266 C 200 290, 300 310, 401 290" fill="none" class="smf" stroke-width="2.5"/>
+      <!-- substrate -->
+      <rect x="300" y="40" width="260" height="260" rx="6" class="box-sunk"/>
+      <text x="430" y="318" font-size="11" text-anchor="middle" class="t-mono t-muted">PACKAGE SUBSTRATE</text>
+      <!-- ASIC -->
+      <rect x="370" y="110" width="120" height="120" rx="4" style="fill:var(--ink)"/>
+      <text x="430" y="165" font-size="13" text-anchor="middle" font-weight="600" style="fill:var(--bg)">Switch ASIC</text>
+      <text x="430" y="183" font-size="11" text-anchor="middle" style="fill:var(--bg)" class="t-mono">102.4 Tb/s</text>
+      <!-- engines top -->
+      <g style="fill:var(--smf-soft);stroke:var(--smf);stroke-width:1.5">
+        <rect x="318" y="52" width="50" height="24" rx="2"/><rect x="376" y="52" width="50" height="24" rx="2"/><rect x="434" y="52" width="50" height="24" rx="2"/><rect x="492" y="52" width="50" height="24" rx="2"/>
+        <rect x="318" y="264" width="50" height="24" rx="2"/><rect x="376" y="264" width="50" height="24" rx="2"/><rect x="434" y="264" width="50" height="24" rx="2"/><rect x="492" y="264" width="50" height="24" rx="2"/>
+        <rect x="312" y="84" width="24" height="44" rx="2"/><rect x="312" y="134" width="24" height="44" rx="2"/><rect x="312" y="184" width="24" height="44" rx="2"/><rect x="312" y="234" width="24" height="24" rx="2"/>
+        <rect x="524" y="84" width="24" height="44" rx="2"/><rect x="524" y="134" width="24" height="44" rx="2"/><rect x="524" y="184" width="24" height="44" rx="2"/><rect x="524" y="234" width="24" height="24" rx="2"/>
+      </g>
+      <!-- callouts -->
+      <line x1="548" y1="106" x2="600" y2="106" class="ln-ink"/>
+      <text x="606" y="102" font-size="12" font-weight="600">Optical engine</text>
+      <text x="606" y="117" font-size="11" class="t-muted">e.g. 6.4 Tb/s each,</text>
+      <text x="606" y="131" font-size="11" class="t-muted">16 per switch</text>
+      <line x1="490" y1="200" x2="600" y2="200" class="ln-ink"/>
+      <text x="606" y="196" font-size="12" font-weight="600">Electrical path</text>
+      <text x="606" y="211" font-size="11" class="t-muted">millimetres, no DSP</text>
+      <text x="180" y="52" font-size="11" class="t-muted" text-anchor="middle">CW light in (dashed)</text>
+      <text x="196" y="314" font-size="11" class="t-muted" text-anchor="middle">modulated data out (solid)</text>
+    </svg>
+    </div>
+    <figcaption><b>Figure 3. A CPO switch, seen from above.</b> Schematic, not to scale, modelled on the published Tomahawk 6 Davisson layout (16 × 6.4 Tb/s engines, field-replaceable ELSFP lasers)<sup class="ref"><a href="#s3">3</a></sup>. Only a few fibers are drawn. Keeping the lasers on the front panel takes the least reliable and most heat-sensitive part out of the hot package.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h3>Why not just keep improving pluggables?</h3>
+    <p>Pluggables keep improving and will dominate unit volume for years. Arista's XPO multi-source agreement, announced in March 2026, packs 12.8 Tb/s into one liquid-cooled pluggable with a cold plate rated to 400 W<sup class="ref"><a href="#s20">20</a></sup>. LPO and LRO remove the DSP and save around 5 W per module<sup class="ref"><a href="#s32">32</a></sup>. Customers also prefer to push copper and pluggables as far as they go before switching, because they are simpler to deploy and repair<sup class="ref"><a href="#s36">36</a></sup>.</p>
+    <p>The limit is physics at the front panel. Every doubling of lane rate shortens how far the electrical signal can travel across the board, and the faceplate only has so much room for ports. At 400G per lane and switch chips of 200 Tb/s and more, the board trace itself becomes the problem. CPO removes the trace.</p>
+    <h3>Two different CPO markets</h3>
+    <p><b>Switch CPO (scale-out)</b> puts optical engines around an Ethernet or InfiniBand switch ASIC. It is shipping now from Nvidia and Broadcom. <b>Accelerator CPO / optical I/O (scale-up)</b> puts optics next to GPUs and XPUs so that hundreds of them can share one memory domain across racks. That is the larger long-term prize and is where Ayar Labs, Lightmatter, Celestial AI (now Marvell) and Nvidia's NVLink roadmap are aimed.</p>
+  </div>
+
+  <details class="deep">
+    <summary>Specialist note <span>· EIC/PIC integration options</span></summary>
+    <div class="body">
+      <p>An optical engine combines an electronic IC (drivers, TIAs, control) with a photonic IC (modulators, detectors, couplers). The integration options, in rough order of performance:</p>
+      <ul>
+        <li><b>Side-by-side with wire bonds</b>: cheap, but bond-wire inductance limits speed.</li>
+        <li><b>Flip-chip with micro-bumps</b>: the common approach today.</li>
+        <li><b>3D hybrid bonding</b>: copper-to-copper bonds at micron pitch. TSMC's COUPE stacks a 6 nm EIC on a 65 nm SOI PIC using SoIC-X, and claims about 40% lower power than micro-bump assembly at the same speed<sup class="ref"><a href="#s7">7</a></sup>.</li>
+        <li><b>Monolithic</b>: electronics and photonics in one process (for example GlobalFoundries Fotonix, used by Ayar Labs). Simpler assembly, but the transistors lag leading-edge logic.</li>
+      </ul>
+      <p>The structural point: the PIC stays on a mature node (45 to 65 nm is enough for optics) while the EIC moves to advanced nodes. That node mismatch is why heterogeneous bonding is winning.</p>
+    </div>
+  </details>
+
+  <div class="prose" id="ocs" style="margin-top:2.4rem">
+    <h3>CPO and optical circuit switching</h3>
+    <p>Optical circuit switching (OCS) often appears next to CPO in the news, but it solves a different problem. <b>CPO changes where the light is converted. OCS changes how the network is wired.</b></p>
+    <p>A CPO switch is still an electrical packet switch: light comes in, becomes electrical, the chip reads the address on every packet, and the result goes back out as light. An OCS never converts the signal at all. It steers light from one fiber port to another, like railway points, and keeps that path until it is told to change. It does not read packets.</p>
+    <p>That makes the two complementary. CPO lowers the cost of each conversion; OCS removes whole layers of conversions by replacing electrical switch tiers with passive light paths, and lets operators rewire the network in software. Google built its Jupiter data-center network this way: MEMS-mirror OCS units replaced the spine layer of its switch fabric, and Google reports 40% less power and 30% less cost for the network overall compared with the best alternatives it considered<sup class="ref"><a href="#s51">51</a>,<a href="#s52">52</a></sup>.</p>
+  </div>
+
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 720 300" role="img" aria-labelledby="f5t">
+      <title id="f5t">Network sketch: three pods of GPUs, each connected to a packet switch with co-packaged optics, and the three switches connected through an optical circuit switch layer that steers light paths between pods.</title>
+      <!-- OCS -->
+      <rect x="200" y="22" width="320" height="64" rx="5" style="fill:var(--smf-soft);stroke:var(--smf);stroke-width:1.5"/>
+      <text x="360" y="44" font-size="13" text-anchor="middle" font-weight="600">Optical circuit switch</text>
+      <text x="360" y="61" font-size="11" text-anchor="middle" class="t-muted">light in, light out · no conversion · reconfigured in ms to ns</text>
+      <path d="M244 78 L 476 30" class="smf" stroke-width="1.6" fill="none"/>
+      <path d="M244 30 L 476 78" class="smf" stroke-width="1.6" fill="none" stroke-dasharray="4 3"/>
+      <!-- fibers -->
+      <g class="smf" stroke-width="2.5" fill="none">
+        <path d="M110 150 C 110 110, 230 110, 250 86"/>
+        <path d="M130 150 C 130 120, 260 112, 280 86"/>
+        <path d="M350 150 L 350 86"/>
+        <path d="M370 150 L 370 86"/>
+        <path d="M590 150 C 590 110, 470 110, 450 86"/>
+        <path d="M610 150 C 610 120, 460 112, 440 86"/>
+      </g>
+      <!-- pods -->
+      <g>
+        <rect x="40" y="150" width="180" height="44" rx="4" class="box"/>
+        <text x="130" y="170" font-size="12.5" text-anchor="middle" font-weight="600">Packet switch + CPO</text>
+        <text x="130" y="185" font-size="10.5" text-anchor="middle" class="t-muted">reads every packet</text>
+        <rect x="270" y="150" width="180" height="44" rx="4" class="box"/>
+        <text x="360" y="170" font-size="12.5" text-anchor="middle" font-weight="600">Packet switch + CPO</text>
+        <text x="360" y="185" font-size="10.5" text-anchor="middle" class="t-muted">reads every packet</text>
+        <rect x="500" y="150" width="180" height="44" rx="4" class="box"/>
+        <text x="590" y="170" font-size="12.5" text-anchor="middle" font-weight="600">Packet switch + CPO</text>
+        <text x="590" y="185" font-size="10.5" text-anchor="middle" class="t-muted">reads every packet</text>
+      </g>
+      <g class="ln-ink" stroke-width="1.2">
+        <line x1="70" y1="194" x2="70" y2="232"/><line x1="110" y1="194" x2="110" y2="232"/><line x1="150" y1="194" x2="150" y2="232"/><line x1="190" y1="194" x2="190" y2="232"/>
+        <line x1="300" y1="194" x2="300" y2="232"/><line x1="340" y1="194" x2="340" y2="232"/><line x1="380" y1="194" x2="380" y2="232"/><line x1="420" y1="194" x2="420" y2="232"/>
+        <line x1="530" y1="194" x2="530" y2="232"/><line x1="570" y1="194" x2="570" y2="232"/><line x1="610" y1="194" x2="610" y2="232"/><line x1="650" y1="194" x2="650" y2="232"/>
+      </g>
+      <g style="fill:var(--ink)">
+        <rect x="58" y="232" width="24" height="24" rx="3"/><rect x="98" y="232" width="24" height="24" rx="3"/><rect x="138" y="232" width="24" height="24" rx="3"/><rect x="178" y="232" width="24" height="24" rx="3"/>
+        <rect x="288" y="232" width="24" height="24" rx="3"/><rect x="328" y="232" width="24" height="24" rx="3"/><rect x="368" y="232" width="24" height="24" rx="3"/><rect x="408" y="232" width="24" height="24" rx="3"/>
+        <rect x="518" y="232" width="24" height="24" rx="3"/><rect x="558" y="232" width="24" height="24" rx="3"/><rect x="598" y="232" width="24" height="24" rx="3"/><rect x="638" y="232" width="24" height="24" rx="3"/>
+      </g>
+      <text x="130" y="278" font-size="11" text-anchor="middle" class="t-muted">Pod A · GPUs</text>
+      <text x="360" y="278" font-size="11" text-anchor="middle" class="t-muted">Pod B · GPUs</text>
+      <text x="590" y="278" font-size="11" text-anchor="middle" class="t-muted">Pod C · GPUs</text>
+    </svg>
+    </div>
+    <figcaption><b>Figure 5. Where CPO and OCS sit in one network.</b> Schematic. CPO makes each packet switch efficient at converting between electrical and optical. The OCS layer above connects the pods with light paths it can rearrange (solid and dashed paths), so fewer electrical switches and transceivers are needed.</figcaption>
+  </figure>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Question</th><th>CPO</th><th>OCS</th></tr></thead>
+    <tbody>
+      <tr><td class="k">What is it?</td><td>A way of packaging optics next to a chip</td><td>A type of switch that steers light between fibers</td></tr>
+      <tr><td class="k">Main benefit</td><td>Cheaper conversion: fewer pJ/bit, more Tb/s per mm</td><td>Fewer conversions: removes switch tiers and transceivers; network can be rewired in software</td></tr>
+      <tr><td class="k">Reads packets?</td><td>Yes, the ASIC routes every packet</td><td>No, data-rate and protocol agnostic</td></tr>
+      <tr><td class="k">How fast it decides</td><td>Per packet, nanoseconds</td><td>Milliseconds (MEMS mirrors) to microseconds or nanoseconds (silicon photonics, SOAs)</td></tr>
+      <tr><td class="k">Judged on</td><td>pJ/bit, edge density, coupling loss, laser reliability, yield</td><td>Port count, insertion loss, crosstalk, switching time, polarisation and wavelength dependence</td></tr>
+      <tr><td class="k">Maturity, 2026</td><td>Shipping in Nvidia and Broadcom switches</td><td>MEMS OCS deployed at scale by Google; silicon photonic OCS early, e.g. Salience Labs' 32-port switch announced March 2026<sup class="ref"><a href="#s53">53</a></sup></td></tr>
+      <tr><td class="k">Main suppliers</td><td>Nvidia, Broadcom, TSMC, Marvell, Ayar Labs</td><td>Google (in-house), Lumentum, Coherent, Salience Labs and other startups<sup class="ref"><a href="#s55">55</a></sup></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <details class="deep">
+    <summary>Specialist note <span>· OCS technologies and why loss matters even more</span></summary>
+    <div class="body">
+      <ul>
+        <li><b>3D MEMS mirrors</b> (Google Apollo): two arrays of tilting micro-mirrors map any input fiber to any output. Large port counts, low loss, broadband; millisecond reconfiguration. Suited to topology changes, not per-job switching.</li>
+        <li><b>Silicon photonic switch fabrics</b>: meshes of Mach-Zehnder or micro-ring elements, thermo-optic (microseconds) or electro-optic (nanoseconds). Compact and fast, but loss and crosstalk grow with the number of stages, so port count is limited.</li>
+        <li><b>SOA-gated switches</b>: semiconductor optical amplifiers act as fast gates and offset loss, at the cost of noise and power.</li>
+        <li><b>Liquid-crystal and robotic patch panels</b>: slower, used for reconfiguration and automation of fiber plants.</li>
+      </ul>
+      <p>Because an OCS never regenerates the signal, every dB in waveguides, crossings, couplers and facets is subtracted from the transceivers' link budget at both ends. A path through a fabric may cross several stages and two fiber-to-chip interfaces. Low-loss SiN routing, sub-dB couplers and stable, low-reflection facet coatings are therefore even more valuable in OCS than in CPO, which is one more market for the materials work described in chapter 10.</p>
+    </div>
+  </details>
+
+</section>
+
+<!-- 04 -->
+<section class="chapter" id="metrics">
+  <div class="ch-num">Chapter 04</div>
+  <h2>Metrics and KPIs</h2>
+  <p class="intro">These are the numbers hyperscalers, switch vendors and investors will ask you about. Learn their units and their current values, and know which way each one has to move.</p>
+
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 720 250" role="img" aria-labelledby="f4t">
+      <title id="f4t">Indicative energy per bit by architecture: retimed pluggable 15 to 25 picojoules per bit, linear receive optics 11 to 15, linear pluggable optics 5 to 10, co-packaged optics 4 to 7, optical I/O chiplets 3 to 6 today with a target of 1 to 2.</title>
+      <g class="ln" stroke-width="1">
+        <line x1="200" y1="14" x2="200" y2="212"/><line x1="298" y1="14" x2="298" y2="212"/><line x1="396" y1="14" x2="396" y2="212"/><line x1="494" y1="14" x2="494" y2="212"/><line x1="592" y1="14" x2="592" y2="212"/><line x1="690" y1="14" x2="690" y2="212"/>
+      </g>
+      <g font-size="12.5" text-anchor="end">
+        <text x="188" y="36">Retimed pluggable</text>
+        <text x="188" y="76">LRO</text>
+        <text x="188" y="116">LPO</text>
+        <text x="188" y="156">CPO (switch)</text>
+        <text x="188" y="196">Optical I/O chiplet</text>
+      </g>
+      <rect x="494" y="24" width="196" height="16" rx="8" class="cu-f"/>
+      <rect x="415.6" y="64" width="78.4" height="16" rx="8" class="cu-f" opacity=".75"/>
+      <rect x="298" y="104" width="98" height="16" rx="8" class="mmf-f"/>
+      <rect x="278.4" y="144" width="58.8" height="16" rx="8" class="smf-f"/>
+      <rect x="258.8" y="184" width="58.8" height="16" rx="8" class="smf-f"/>
+      <rect x="219.6" y="184" width="19.6" height="16" rx="8" fill="none" class="ln-ink" stroke-dasharray="3 2" stroke-width="1.5"/>
+      <text x="229" y="178" font-size="10.5" text-anchor="middle" class="t-muted">target</text>
+      <g font-size="11" class="t-mono t-muted" text-anchor="middle">
+        <text x="200" y="232">0</text><text x="298" y="232">5</text><text x="396" y="232">10</text><text x="494" y="232">15</text><text x="592" y="232">20</text><text x="690" y="232">25 pJ/bit</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>Figure 4. Energy per bit, indicative ranges.</b> Compiled from vendor and analyst figures<sup class="ref"><a href="#s33">33</a>,<a href="#s32">32</a>,<a href="#s37">37</a></sup>. Boundaries differ between sources (laser wall-plug, host SerDes, FEC), so treat these as ranges for orientation and not as a benchmark.</figcaption>
+  </figure>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>KPI</th><th>Unit</th><th>Typical today (2026)</th><th>Direction / next targets</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Energy per bit<span class="sub">the headline metric</span></td><td class="n">pJ/bit</td><td>15 to 25 retimed pluggable; ~5 for CPO and optical I/O chiplets<sup class="ref"><a href="#s37">37</a></sup></td><td>Below 5 for CPO broadly; 1 to 2 for in-package optical I/O</td></tr>
+      <tr><td class="k">Lane rate</td><td class="n">Gb/s per lane</td><td>100G mainstream, 200G ramping (802.3dj)</td><td>400G (448G line rate) chips shown at OFC 2026; study group chartered March 2026<sup class="ref"><a href="#s17">17</a>,<a href="#s18">18</a></sup></td></tr>
+      <tr><td class="k">Module / engine bandwidth</td><td class="n">Tb/s</td><td>800G and 1.6T pluggables; 6.4T CPO engines</td><td>3.2T pluggables, 12.8T XPO modules and CPX engines</td></tr>
+      <tr><td class="k">Switch capacity</td><td class="n">Tb/s per ASIC</td><td>51.2T widespread, 102.4T shipping</td><td>~204.8T expected around 2027–28 <span class="tag proj">Projection</span></td></tr>
+      <tr><td class="k">Bandwidth density<span class="sub">"shoreline" or beachfront</span></td><td class="n">Gb/s per mm of die edge</td><td>~140 G/mm in the OIF 3.2T CPO module definition<sup class="ref"><a href="#s14">14</a></sup></td><td>Several Tb/s per mm for optical I/O chiplets (dense WDM, many fibers)</td></tr>
+      <tr><td class="k">Faceplate density</td><td class="n">Tb/s per rack unit</td><td>~51 Tb/s per RU with 1.6T OSFP</td><td>204.8 Tb/s per RU claimed for XPO<sup class="ref"><a href="#s20">20</a></sup></td></tr>
+      <tr><td class="k">Reach</td><td class="n">m, km</td><td>SR ~50–100 m (MMF), DR 500 m, FR 2 km, LR 10 km</td><td>Scale-up optics need only 1 to 50 m but at extreme density</td></tr>
+      <tr><td class="k">Latency</td><td class="n">ns</td><td>Fiber adds ~5 ns per metre; DSP and FEC add tens to hundreds of ns</td><td>Linear and CPO links remove DSP latency; scale-up wants the lightest possible FEC</td></tr>
+      <tr><td class="k">Pre-FEC BER</td><td class="n">errors per bit</td><td>~1e-5 to 2.4e-4 depending on FEC (KP4 RS(544,514) for 200G/lane)</td><td>Lower raw BER allows lighter FEC and lower latency</td></tr>
+      <tr><td class="k">Laser optical power</td><td class="n">mW per CW laser</td><td>~400 mW class for CPO<sup class="ref"><a href="#s43">43</a></sup></td><td>800 mW "super high power" shown at OFC 2026<sup class="ref"><a href="#s19">19</a></sup></td></tr>
+      <tr><td class="k">Fiber-to-chip coupling loss</td><td class="n">dB per facet</td><td>~1 to 3 dB depending on coupler</td><td>Below 1 dB with detachable, passively aligned connectors</td></tr>
+      <tr><td class="k">Reliability</td><td class="n">FIT, link flaps</td><td>Nvidia cites 13× better laser reliability with fewer lasers in CPO<sup class="ref"><a href="#s34">34</a></sup></td><td>Hyperscalers want CPO at least as reliable as pluggables, measured as link-down events per year</td></tr>
+      <tr><td class="k">Cost</td><td class="n">$ per Gb/s</td><td>Commodity pluggables trend toward cents per Gb/s</td><td>CPO must beat pluggable total cost of ownership, including power and labour</td></tr>
+      <tr><td class="k">Yield</td><td class="n">% known-good</td><td>Not public; the main cost driver for CPO</td><td>Wafer-level optical test and known-good optical engines before assembly</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note smf">
+    <span class="label">How to use these numbers</span>
+    <p>When you pitch a component or process, translate its benefit into one of these rows. "0.5 dB less coupling loss" means a lower laser power class, which means fewer lasers and fewer pJ/bit. Customers buy pJ/bit, density, reliability and yield. They do not buy material properties.</p>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="chapter" id="now">
+  <div class="ch-num">Chapter 05</div>
+  <h2>State of play, October 2026</h2>
+  <p class="intro">CPO left the lab in 2025–26. One analyst summed up OFC 2026 as "Nvidia on one side and everyone else on the other"<sup class="ref"><a href="#s22">22</a></sup>. These are the moves that define the field now.</p>
+
+  <div class="prose" style="margin-top:22px">
+    <h3>Nvidia: CPO in production, and buying the laser supply</h3>
+    <p>Nvidia announced Quantum-X Photonics (InfiniBand) and Spectrum-X Photonics (Ethernet) at GTC 2025. Quantum-X offers 144 ports of 800 Gb/s with liquid cooling; Spectrum-X configurations reach about 100 Tb/s, for example 128 × 800G<sup class="ref"><a href="#s1">1</a></sup>. In July 2026 Nvidia's networking head confirmed CPO is in manufacturing for scale-out, with end products reaching the market this year<sup class="ref"><a href="#s23">23</a></sup>.</p>
+    <p>In March 2026 Nvidia invested $2 billion each in Lumentum and Coherent, including multibillion-dollar purchase commitments and capacity rights for laser components<sup class="ref"><a href="#s6">6</a></sup>. It has also invested in Scintil Photonics, a French company developing multi-wavelength lasers for scale-up CPO<sup class="ref"><a href="#s39">39</a></sup>. The lesson: the bottleneck has moved upstream to InP lasers.</p>
+    <p>At GTC 2026 Nvidia laid out the next step. The Feynman platform (2028) brings co-packaged optics into the NVLink scale-up switch, enabling NVL1152 systems: 1,152 GPUs across eight Kyber racks connected by optical NVLink<sup class="ref"><a href="#s4">4</a>,<a href="#s35">35</a></sup>. Copper and CPO scale-up versions will coexist.</p>
+
+    <h3>Broadcom: third-generation CPO, merchant silicon</h3>
+    <p>Broadcom has shipped Tomahawk 6 Davisson since October 2025: a 102.4 Tb/s Ethernet switch with 16 optical engines of 6.4 Tb/s, 200G lanes and field-replaceable ELSFP lasers<sup class="ref"><a href="#s2">2</a>,<a href="#s3">3</a></sup>. As a merchant vendor, Broadcom sells to everyone who is not buying Nvidia, and at OFC 2026 it also launched the first 400G-per-lane optical DSP, the 3 nm Taurus<sup class="ref"><a href="#s18">18</a></sup>.</p>
+
+    <h3>TSMC: the foundry for optical engines</h3>
+    <p>TSMC's COUPE platform enters volume production in 2026, with Nvidia and Broadcom named as first customers; a second generation follows around late 2027 to 2028<sup class="ref"><a href="#s9">9</a>,<a href="#s44">44</a></sup>. TSMC expects silicon photonics to exceed half of the optical transceiver market by 2027<sup class="ref"><a href="#s8">8</a></sup>. Samsung Foundry is targeting a turnkey CPO offering around 2029<sup class="ref"><a href="#s9">9</a></sup>.</p>
+
+    <h3>The scale-up startups and their acquirers</h3>
+    <ul>
+      <li><b>Celestial AI</b> was acquired by Marvell for about $3.25 billion upfront. Its Photonic Fabric chiplet offers 16 Tb/s for scale-up interconnect<sup class="ref"><a href="#s10">10</a></sup>.</li>
+      <li><b>Ayar Labs</b> raised a $500 million Series E in March 2026 at a $3.75 billion valuation, with Nvidia and AMD participating<sup class="ref"><a href="#s11">11</a></sup>. Its TeraPHY UCIe optical chiplet delivers up to 8 Tb/s at roughly 5 pJ/bit<sup class="ref"><a href="#s37">37</a></sup>.</li>
+      <li><b>Lightmatter</b> pursues photonic interposers and optical engines such as the 6.4 Tb/s Passage L20 for near-package use<sup class="ref"><a href="#s40">40</a></sup>.</li>
+      <li>AMD acquired the photonics startup Enosemi in 2025.</li>
+    </ul>
+
+    <h3>Europe</h3>
+    <p>STMicroelectronics moved its PIC100 silicon photonics platform, co-developed with AWS on 300 mm wafers in France, into high-volume production in 2026 and plans to quadruple output by 2027<sup class="ref"><a href="#s13">13</a></sup>. ST also published a through-silicon-via roadmap aimed at near- and co-packaged optics<sup class="ref"><a href="#s12">12</a></sup>. In the Netherlands, PhotonDelta funds the integrated photonics ecosystem around Eindhoven and Twente and is a partner in the European PIXEurope pilot line.</p>
+
+    <h3>The market numbers, and why they disagree</h3>
+    <p>Forecasts vary widely depending on what counts as CPO. LightCounting (cited by ST) expects data-center pluggables to exceed $34 billion by 2030 with CPO adding more than $9 billion<sup class="ref"><a href="#s13">13</a></sup>. TechInsights projects total transceiver revenue growing from $9.7 billion in 2025 to $84.3 billion by 2030, with CPO near $30 billion<sup class="ref"><a href="#s26">26</a></sup>. TrendForce sizes the AI optical-transceiver market at about $26 billion in 2026<sup class="ref"><a href="#s42">42</a></sup>. Investors will quote whichever suits their thesis; quote the range and your own bottom-up logic.</p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="chapter" id="standards">
+  <div class="ch-num">Chapter 06</div>
+  <h2>Standards and the bodies behind them</h2>
+  <p class="intro">Hyperscalers buy from multiple suppliers, so interoperability specs decide which products can be sold at scale. Four kinds of body matter: formal standards (IEEE), implementation agreements (OIF), multi-source agreements (MSAs) between vendors, and industry consortia.</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Spec or body</th><th>What it defines</th><th>Why it matters for CPO</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td class="k">IEEE 802.3dj</td><td>200, 400, 800G and 1.6T Ethernet over 200G lanes, electrical and optical</td><td>The lane rate every 2026–27 CPO engine uses</td><td><span class="tag std">SA ballot</span> passed recirculation June 2026; approval expected by end of 2026<sup class="ref"><a href="#s16">16</a></sup></td></tr>
+      <tr><td class="k">IEEE 400G/lane study group</td><td>Next-generation electrical and single-mode optical lanes to ~500 m</td><td>Sets the 3.2T and 204.8T generation</td><td><span class="tag ann">Chartered</span> March 2026<sup class="ref"><a href="#s17">17</a></sup></td></tr>
+      <tr><td class="k">OIF CEI-224G / CEI-448G</td><td>Electrical interfaces between chips and modules</td><td>Defines the host-to-engine link in CPO and NPO</td><td>224G done; 448G framework released, demos at OFC 2026<sup class="ref"><a href="#s15">15</a></sup></td></tr>
+      <tr><td class="k">OIF 3.2T CPO module IA</td><td>First co-packaging standard: 3.2T module on 100G lanes</td><td>Reference for mechanics, electrical and ~140 G/mm edge density</td><td><span class="tag std">Published</span><sup class="ref"><a href="#s14">14</a></sup></td></tr>
+      <tr><td class="k">OIF ELSFP</td><td>Front-panel pluggable external laser source with blind-mate fiber connector</td><td>How CW lasers are fed into CPO and made replaceable</td><td><span class="tag std">Published</span>, used in Broadcom Davisson</td></tr>
+      <tr><td class="k">CMIS</td><td>Common management interface for modules and lasers</td><td>Software control and monitoring of engines and ELSFPs</td><td><span class="tag std">Published</span></td></tr>
+      <tr><td class="k">Open CPX MSA</td><td>Standard socketed optical engine for CPO and NPO, 6.4T today, roadmap to 12.8T and 448G lanes</td><td>Opens the engine layer to multiple suppliers and makes engines replaceable</td><td><span class="tag ann">Formed</span> March 2026 by Ciena, Coherent, Marvell, Molex, Samtec, TeraHop<sup class="ref"><a href="#s21">21</a></sup></td></tr>
+      <tr><td class="k">OCI MSA</td><td>Optical compute interconnect for scale-up, attaching optics to GPUs</td><td>Expected basis for optics on Nvidia accelerators<sup class="ref"><a href="#s5">5</a></sup></td><td><span class="tag ann">Formed</span> March 2026<sup class="ref"><a href="#s22">22</a></sup></td></tr>
+      <tr><td class="k">XPO MSA</td><td>12.8T liquid-cooled pluggable, 64 lanes</td><td>The pluggable camp's answer to CPO</td><td><span class="tag ann">Formed</span> March 2026, led by Arista<sup class="ref"><a href="#s20">20</a></sup></td></tr>
+      <tr><td class="k">LPO MSA</td><td>Interoperability for linear (DSP-free) pluggables</td><td>Same linear-drive ideas that CPO relies on</td><td>Active<sup class="ref"><a href="#s31">31</a></sup></td></tr>
+      <tr><td class="k">UALink</td><td>Open scale-up interconnect with memory semantics, up to 1,024 accelerators</td><td>Open alternative to NVLink; optical scale-up target</td><td>First products late 2026 to early 2027<sup class="ref"><a href="#s25">25</a></sup></td></tr>
+      <tr><td class="k">ESUN (OCP)</td><td>Ethernet adapted for scale-up: lossless, compact headers</td><td>Broadcom-led route to Ethernet scale-up fabrics</td><td>OCP workstream since Oct 2025<sup class="ref"><a href="#s24">24</a></sup></td></tr>
+      <tr><td class="k">Ultra Ethernet (UEC)</td><td>Transport and congestion control for AI scale-out over Ethernet</td><td>Ethernet's answer to InfiniBand</td><td>1.0 published; compliant NICs shipping<sup class="ref"><a href="#s50">50</a></sup></td></tr>
+      <tr><td class="k">UCIe</td><td>Die-to-die chiplet interface inside a package</td><td>How optical I/O chiplets plug into XPUs (Ayar TeraPHY is UCIe)</td><td>Published, evolving</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="label">Practical advice</span>
+    <p>Join the conversation early. OIF and OCP membership is affordable for a startup, and the working groups are where you meet the engineers who write purchase requirements. A component designed to an MSA has a market; a component that needs a custom interface has a single customer at best.</p>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="chapter" id="roadmap">
+  <div class="ch-num">Chapter 07</div>
+  <h2>Roadmap, 2026 to 2036</h2>
+  <p class="intro">Near-term entries come from announced products and published plans. Entries from 2029 onward are projections built from the trend lines: roughly 2× switch bandwidth every two years, lane rates doubling every three to four years, and steadily falling pJ/bit.</p>
+
+  <ol class="timeline">
+    <li>
+      <div class="yr num">2026</div>
+      <ul>
+        <li><span class="tag ship">Shipping</span>Nvidia Quantum-X and Spectrum-X Photonics CPO switches; Broadcom 102.4T Davisson<sup class="ref"><a href="#s23">23</a>,<a href="#s2">2</a></sup></li>
+        <li><span class="tag ship">Shipping</span>1.6T pluggables ramp; ST PIC100 in high volume; TSMC COUPE in volume<sup class="ref"><a href="#s13">13</a>,<a href="#s9">9</a></sup></li>
+        <li><span class="tag ann">Standard</span>IEEE 802.3dj (200G/lane, 1.6TbE) approval expected; 400G/lane study group under way</li>
+        <li><span class="tag ann">Announced</span>Salience Labs 32-port silicon photonic optical circuit switch, 64 and 128 ports planned<sup class="ref"><a href="#s54">54</a></sup></li>
+        <li><span class="tag ann">Announced</span>Open CPX, OCI and XPO MSAs; 400G/lane DSP and 3.2T module demos<sup class="ref"><a href="#s19">19</a>,<a href="#s38">38</a></sup></li>
+      </ul>
+    </li>
+    <li>
+      <div class="yr num">2027</div>
+      <ul>
+        <li><span class="tag ann">Planned</span>Rubin Ultra in Kyber NVL144 racks, copper scale-up; optical scale-up across eight Oberon racks for NVL576<sup class="ref"><a href="#s5">5</a></sup></li>
+        <li><span class="tag ann">Planned</span>First UALink switches and fabrics; silicon photonics above 50% of transceivers<sup class="ref"><a href="#s25">25</a>,<a href="#s8">8</a></sup></li>
+        <li><span class="tag proj">Projection</span>3.2T pluggables (8 × 400G) begin sampling; ST targets 4× its 2026 silicon photonics output<sup class="ref"><a href="#s13">13</a></sup></li>
+      </ul>
+    </li>
+    <li>
+      <div class="yr num">2028</div>
+      <ul>
+        <li><span class="tag ann">Planned</span>Nvidia Feynman: NVLink switches with CPO, NVL1152 optical scale-up across 8 Kyber racks<sup class="ref"><a href="#s4">4</a>,<a href="#s35">35</a></sup></li>
+        <li><span class="tag ann">Planned</span>Second-generation TSMC COUPE in mass production (late 2027 to early 2028)<sup class="ref"><a href="#s44">44</a></sup></li>
+        <li><span class="tag proj">Projection</span>~204.8T switch ASICs with 400G SerDes; CPO becomes the default for the largest AI switches</li>
+      </ul>
+    </li>
+    <li class="future">
+      <div class="yr num">2029–30</div>
+      <ul>
+        <li><span class="tag ann">Planned</span>Samsung turnkey CPO; Marvell expects meaningful Celestial AI revenue<sup class="ref"><a href="#s9">9</a>,<a href="#s10">10</a></sup></li>
+        <li><span class="tag proj">Projection</span>Optical I/O chiplets in volume beside custom XPUs; memory pooling over optics</li>
+        <li><span class="tag proj">Projection</span>CPO revenue of roughly $9 to $30 billion by 2030, depending on the analyst<sup class="ref"><a href="#s13">13</a>,<a href="#s26">26</a></sup></li>
+      </ul>
+    </li>
+    <li class="future">
+      <div class="yr num">2031–33</div>
+      <ul>
+        <li><span class="tag proj">Projection</span>~800G-class lanes or dense WDM (8 to 16 wavelengths per fiber) to keep shoreline density rising</li>
+        <li><span class="tag proj">Projection</span>Comb lasers and multi-wavelength sources replace banks of single lasers; new modulator materials (TFLN, BTO) in production</li>
+        <li><span class="tag proj">Projection</span>Fast silicon-photonic optical circuit switches move from reconfiguring pods toward scale-up fabrics</li>
+      </ul>
+    </li>
+    <li class="future">
+      <div class="yr num">2034–36</div>
+      <ul>
+        <li><span class="tag proj">Projection</span>Optics as the default interconnect beyond a few centimetres, including GPU to memory</li>
+        <li><span class="tag proj">Projection</span>Sub-1 pJ/bit links, photonic interposers and wafer-scale optical fabrics; copper limited to inside the package</li>
+      </ul>
+    </li>
+  </ol>
+
+  <div class="note cu">
+    <span class="label">Read the projections carefully</span>
+    <p>Roadmaps in this industry slip often, and copper keeps surviving longer than predicted. Plan your company around milestones that are already funded (Nvidia, Broadcom, TSMC and hyperscaler commitments), and treat the later entries as direction, not dates.</p>
+  </div>
+</section>
+
+<!-- HIR addendum -->
+<section class="chapter" id="hir">
+  <div class="ch-num">Chapter 07 · addendum</div>
+  <h2>What the IEEE Heterogeneous Integration Roadmap adds</h2>
+  <p class="intro">The 2025 edition of the IEEE/SEMI/ASME roadmap has a Photonics chapter (Chapter 9, Rev 0.9, March 2026) that covers CPO, III-V integration and fiber attach<sup class="ref"><a href="#s59">59</a>,<a href="#s60">60</a></sup>. It is a technology-assessment document, not a market forecast, so it complements the company-led timeline above. Most of it agrees with this guide; the useful part is where it puts the weight.</p>
+
+  <h3>Where it confirms the guide</h3>
+  <ul>
+    <li>Power: CPO saves roughly 20% more than direct-drive LPO, and Broadcom’s 51.2T switch is quoted at up to 70% below pluggables. Reported system energy is about 6.6 to 7 pJ/bit incl. laser for Broadcom and Cisco switches, below 3 to 5 pJ/bit for optical I/O chiplets (Intel, Ayar Labs), and about 2.4 pJ/bit for Celestial AI.</li>
+    <li>Remote lasers: keeping the laser away from the hot ASIC extends its life, and makes it replaceable, which is why external laser sources keep appearing in the standards table.</li>
+    <li>Standardisation is unresolved: the OIF 3.2T CPO module agreement was not implemented because its assumed architecture gave no power or cost benefit, and there is no consensus on what to standardise without constraining the architecture. The 2026 MSAs in chapter 06 look like the industry’s answer.</li>
+  </ul>
+
+  <h3>Where it adds something</h3>
+  <ul>
+    <li><b>Thermal is the top red-flag barrier.</b> Silicon and InP resonant devices drift about 0.08 and 0.1 nm per °C, while the switch ASIC next door can exceed 500 W. Thermistors do not work well on dense chips, dummy heaters cost power, and no good thermal-electrical-optical co-simulation tools exist. The proposed direction is micro-TECs at specific spots (TIPS). My reading: this is where an athermal material, such as the negative thermo-optic coefficient of TiO₂ noted in the glossary, deserves a hard look.</li>
+    <li><b>Packaging, not the PIC, drives cost.</b> Packaging and fiber attach often cost more than the photonic chip itself. Self-aligning optics (±30 µm tolerance, about 0.5 dB), laser fusion splicing, photonic wire bonding and ML-assisted alignment (from 30 to 60 s down to under 5 s per fiber) are the routes; the roadmap names fiber attach below $0.10 per port as a 2030 to 2035 target. Teramount, Photonect, MicroAlign and Vanguard Automation are cited as startups here.</li>
+    <li><b>Laser integration is a supply-chain gap.</b> Micro-transfer printing places III-V devices at about ±0.5 µm (3σ) but at roughly 10,000 dies per hour, and it has no known-good-die test. LIFT, borrowed from micro-LED displays, exceeds 8 million transfers per minute there, but photonics needs about ten times tighter alignment than displays (±0.5 µm versus ±5 µm). Foundry access for III-V on silicon is currently limited to Tower. imec, Tyndall and UGent hold the most advanced MTP capability, and the EU PhotonixFAB project is building service access.</li>
+    <li><b>Reliability bar.</b> Optical engines inside a switch cannot be repaired in the field, so their FIT rates must match the ASIC’s. Wafer thinning to about 10 µm, TSV stress that shifts bandgap-sensitive devices such as EAMs and photodetectors, ESD exposure at die-to-die interfaces and copper contamination are the named failure risks. JEDEC JC-14.3 is writing SiPh qualification. Intel reports FIT below 0.1 across 32 million integrated lasers.</li>
+    <li><b>Light sources.</b> Membrane lasers on SiC exceed 110 GHz bandwidth (97 GHz at 55 °C, 74 GHz at 85 °C); quantum-dot lasers on silicon have passed 100,000 hours at 35 °C and could remove the isolator; heterogeneous lasers still run at only about 10% wall-plug efficiency. A low-loss integrated isolator and monolithic III-V on silicon remain red barriers.</li>
+  </ul>
+
+  <h3>Its three horizons</h3>
+  <ul>
+    <li><b>2025 to 2030:</b> CPO at scale with 12.8T and 25.6T engines, MTP in volume manufacturing, wafer-level PIC packaging cutting per-port assembly cost by about an order of magnitude, 1.6T transceivers reaching 10 million units a year.</li>
+    <li><b>2030 to 2035:</b> sub-2 pJ/bit optical I/O, 3D electronic-photonic stacks as standard practice, multi-vendor CPO module interfaces, multi-foundry III-V-on-silicon services, 32+ channel membrane laser arrays.</li>
+    <li><b>2035 to 2045:</b> monolithic III-V lasers on silicon, 100 Tb/s-class PICs, sub-0.5 pJ/bit inter-chiplet optics.</li>
+  </ul>
+
+  <div class="note cu">
+    <span class="label">Read it as a draft</span>
+    <p>This is a Rev 0.9 draft with placeholders and some internal inconsistencies (market size is given as both $1 trillion and $1.4 trillion; Intel’s OCI chiplet appears as about 5 pJ/bit in the summary and below 3 pJ/bit in the table), and its CPO figures are from 2023 to 2024 demonstrations. Use it for the technology barriers and horizons, and this guide’s sections for current shipping status. Only Chapter 9 was read for this addendum. Other chapters likely relevant to CPO are <a href="https://eps.ieee.org/wp-content/uploads/2026/05/HIR_20-Thermal_0.9.docx.pdf" target="_blank" rel="noopener">Thermal</a>, <a href="https://eps.ieee.org/wp-content/uploads/2026/05/HIR_2_HPC-and-DATA-Centers_0.9.pdf" target="_blank" rel="noopener">HPC and data centers</a>, <a href="https://eps.ieee.org/wp-content/uploads/2026/05/HIR_24-_Reliability-0.9.docx.pdf" target="_blank" rel="noopener">Reliability</a>, <a href="https://eps.ieee.org/wp-content/uploads/2026/05/HIR_17_Test_Technology_0.9-1.pdf" target="_blank" rel="noopener">Test</a> and <a href="https://eps.ieee.org/wp-content/uploads/2026/05/HIR_18_Supply-Chain_0.9.docx.pdf" target="_blank" rel="noopener">Supply chain</a>.</p>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="chapter" id="challenges">
+  <div class="ch-num">Chapter 08</div>
+  <h2>The hard problems</h2>
+  <p class="intro">At SPIE Photonics West and OFC in 2026 the message was consistent: optical performance is mostly solved; integration, manufacturing and operations are not<sup class="ref"><a href="#s30">30</a></sup>. Each problem below is also a market.</p>
+
+  <div class="ch-grid">
+    <div>
+      <h4>Fiber attach and coupling <span class="sev">Critical</span></h4>
+      <p>Aligning dozens of fibers to a PIC at sub-micron accuracy, at volume, without active alignment. The industry has not converged on one architecture, and LightCounting called it one of the biggest open problems<sup class="ref"><a href="#s23">23</a></sup>.</p>
+      <p class="opp">Detachable connectors, passive alignment features, mode converters, low-loss edge couplers, AR and index-matching coatings.</p>
+    </div>
+    <div>
+      <h4>Yield and known-good die <span class="sev">Critical</span></h4>
+      <p>A failed optical engine can scrap a package that holds a very expensive ASIC. Silicon photonics has higher process variation than CMOS and limited rework<sup class="ref"><a href="#s30">30</a></sup>.</p>
+      <p class="opp">Wafer-level optical test, burn-in of engines before assembly, process monitoring, defect metrology.</p>
+    </div>
+    <div>
+      <h4>Thermal environment <span class="sev">High</span></h4>
+      <p>Optics sit next to a kilowatt-class chip. Lasers degrade with heat, and ring resonators drift by tens of pm per kelvin. Most CPO systems are liquid-cooled<sup class="ref"><a href="#s28">28</a></sup>.</p>
+      <p class="opp">Athermal designs, thermal isolation, efficient heaters and control loops, materials with negative thermo-optic coefficient.</p>
+    </div>
+    <div>
+      <h4>Serviceability <span class="sev">High</span></h4>
+      <p>Operators lose the hot-swappable module. Lasers moved to ELSFPs; Open CPX now tries to make engines socketed and replaceable<sup class="ref"><a href="#s21">21</a></sup>.</p>
+      <p class="opp">Sockets, connectors, field diagnostics that tell contamination from damage.</p>
+    </div>
+    <div>
+      <h4>Laser supply <span class="sev">High</span></h4>
+      <p>High-power CW InP lasers are scarce; Nvidia spent $4 billion to secure capacity<sup class="ref"><a href="#s6">6</a></sup>.</p>
+      <p class="opp">Laser facet passivation and coatings, reliability testing, alternative sources (comb lasers, heterogeneous III-V on Si).</p>
+    </div>
+    <div>
+      <h4>Test and qualification <span class="sev">High</span></h4>
+      <p>Production test needs automated fiber connection and full optical characterisation before the engine meets the ASIC<sup class="ref"><a href="#s29">29</a></sup>. Hyperscaler qualification takes 12 to 36 months.</p>
+      <p class="opp">Probe cards with optical access, test services, reliability labs.</p>
+    </div>
+    <div>
+      <h4>Advanced packaging capacity <span class="sev">Medium</span></h4>
+      <p>CPO competes with GPUs and HBM for TSMC's CoWoS and SoIC lines<sup class="ref"><a href="#s41">41</a></sup>.</p>
+      <p class="opp">Alternative assembly flows, outsourced assembly and test (OSAT) partners in Europe.</p>
+    </div>
+    <div>
+      <h4>Ecosystem and lock-in <span class="sev">Medium</span></h4>
+      <p>Nvidia ships a vertically integrated stack; everyone else depends on MSAs that are still forming. Choosing the wrong standard or failing a customer qualification is a real risk<sup class="ref"><a href="#s42">42</a></sup>.</p>
+      <p class="opp">Standards-compliant components that serve several camps at once.</p>
+    </div>
+    <div>
+      <h4>Copper incumbency <span class="sev">Medium</span></h4>
+      <p>Customers push copper to its limit first. Co-packaged copper and new cable designs keep extending copper inside the rack<sup class="ref"><a href="#s36">36</a></sup>.</p>
+      <p class="opp">Target links where copper physically cannot follow: multi-rack scale-up and 400G lanes.</p>
+    </div>
+  </div>
+  <p><a class="btn" href="#openings" style="text-decoration:none">See all challenges and opportunities in one place</a></p>
+</section>
+
+<!-- 09 -->
+<section class="chapter" id="players">
+  <div class="ch-num">Chapter 09</div>
+  <h2>Who's who in the value chain</h2>
+  <p class="intro">CPO is a team sport across nine layers. Knowing who sits where tells you who your customers, partners and competitors are. Links go to each company's own website.</p>
+  <div class="co-legend"><span><i></i>European company or institution</span></div>
+
+  <div style="margin-top:18px">
+    <div class="layer">
+      <h4>Switch and accelerator silicon<small>Set the requirements; the ultimate CPO integrators</small></h4>
+      <div class="co"><a href="https://www.nvidia.com" target="_blank" rel="noopener">Nvidia</a><a href="https://www.broadcom.com" target="_blank" rel="noopener">Broadcom</a><a href="https://www.marvell.com" target="_blank" rel="noopener">Marvell</a><a href="https://www.amd.com" target="_blank" rel="noopener">AMD</a><a href="https://www.cisco.com" target="_blank" rel="noopener">Cisco</a><a href="https://www.arista.com" target="_blank" rel="noopener">Arista</a></div>
+    </div>
+    <div class="layer">
+      <h4>Foundries and PIC platforms<small>Make the photonic and electronic chips</small></h4>
+      <div class="co"><a href="https://www.tsmc.com" target="_blank" rel="noopener">TSMC (COUPE)</a><a href="https://gf.com" target="_blank" rel="noopener">GlobalFoundries (Fotonix)</a><a href="https://towersemi.com" target="_blank" rel="noopener">Tower Semiconductor</a><a class="eu" href="https://blog.st.com/pic100" target="_blank" rel="noopener">STMicroelectronics (PIC100)</a><a href="https://semiconductor.samsung.com" target="_blank" rel="noopener">Samsung Foundry</a><a class="eu" href="https://www.imec-int.com" target="_blank" rel="noopener">imec</a><a class="eu" href="https://smartphotonics.nl" target="_blank" rel="noopener">SMART Photonics (InP)</a></div>
+    </div>
+    <div class="layer">
+      <h4>Lasers and III-V devices<small>The current bottleneck</small></h4>
+      <div class="co"><a href="https://www.lumentum.com" target="_blank" rel="noopener">Lumentum</a><a href="https://www.coherent.com" target="_blank" rel="noopener">Coherent</a><a href="https://sumitomoelectric.com" target="_blank" rel="noopener">Sumitomo Electric</a><a class="eu" href="https://www.scintil-photonics.com" target="_blank" rel="noopener">Scintil Photonics</a><a class="eu" href="https://effectphotonics.com" target="_blank" rel="noopener">EFFECT Photonics</a></div>
+    </div>
+    <div class="layer">
+      <h4>Modulator materials<small>TFLN, BTO, electro-optic polymers</small></h4>
+      <div class="co"><a href="https://hyperlightcorp.com" target="_blank" rel="noopener">HyperLight (TFLN)</a><a href="https://www.lightwavelogic.com" target="_blank" rel="noopener">Lightwave Logic (polymers)</a><span>Lumiphase (BTO)</span><span>Advanced Fiber Resources (TFLN)</span></div>
+    </div>
+    <div class="layer">
+      <h4>Optical engines and I/O chiplets<small>The integrated light engines</small></h4>
+      <div class="co"><a href="https://ayarlabs.com" target="_blank" rel="noopener">Ayar Labs</a><a href="https://lightmatter.co" target="_blank" rel="noopener">Lightmatter</a><a href="https://www.marvell.com" target="_blank" rel="noopener">Celestial AI (Marvell)</a><a href="https://www.ciena.com" target="_blank" rel="noopener">Ciena (Nubis)</a><a href="https://www.poet-technologies.com" target="_blank" rel="noopener">POET Technologies</a><span>TeraHop</span><span>Xscape Photonics</span><span>Avicena</span></div>
+    </div>
+    <div class="layer">
+      <h4>Transceiver modules and manufacturing<small>Pluggables today, CPO assembly tomorrow</small></h4>
+      <div class="co"><a href="https://www.innolight.com" target="_blank" rel="noopener">InnoLight</a><a href="https://www.eoptolink.com" target="_blank" rel="noopener">Eoptolink</a><a href="https://www.coherent.com" target="_blank" rel="noopener">Coherent</a><a href="https://www.fabrinet.com" target="_blank" rel="noopener">Fabrinet</a><a href="https://www.jabil.com" target="_blank" rel="noopener">Jabil</a></div>
+    </div>
+    <div class="layer">
+      <h4>Fiber, connectors and packaging<small>Fiber attach is the open problem</small></h4>
+      <div class="co"><a href="https://www.corning.com" target="_blank" rel="noopener">Corning</a><a href="https://www.senko.com" target="_blank" rel="noopener">SENKO</a><a href="https://www.molex.com" target="_blank" rel="noopener">Molex</a><a href="https://www.samtec.com" target="_blank" rel="noopener">Samtec</a><a class="eu" href="https://www.tue.nl/en/impact/tue-participations/spin-offs-in-tue-participations/photonx-networks" target="_blank" rel="noopener">PhotonX Networks (TU/e)</a></div>
+    </div>
+    <div class="layer">
+      <h4>Optical circuit switches<small>Steer light between fibers without conversion</small></h4>
+      <div class="co"><span>Google (in-house Apollo)</span><a href="https://www.lumentum.com" target="_blank" rel="noopener">Lumentum</a><a href="https://www.coherent.com" target="_blank" rel="noopener">Coherent</a><span>Salience Labs</span></div>
+    </div>
+    <div class="layer">
+      <h4>Test, assembly equipment and design tools<small>Known-good engines and automation</small></h4>
+      <div class="co"><a href="https://www.advantest.com" target="_blank" rel="noopener">Advantest</a><a href="https://www.teradyne.com" target="_blank" rel="noopener">Teradyne</a><a href="https://www.keysight.com" target="_blank" rel="noopener">Keysight</a><a href="https://www.formfactor.com" target="_blank" rel="noopener">FormFactor</a><a class="eu" href="https://www.ficontec.com" target="_blank" rel="noopener">ficonTEC</a><a href="https://www.synopsys.com" target="_blank" rel="noopener">Synopsys</a><a href="https://www.cadence.com" target="_blank" rel="noopener">Cadence</a></div>
+    </div>
+    <div class="layer">
+      <h4>Ecosystem, research and analysts<small>Where to learn, meet and benchmark</small></h4>
+      <div class="co"><a class="eu" href="https://www.photondelta.com" target="_blank" rel="noopener">PhotonDelta</a><a class="eu" href="https://www.tue.nl/en/" target="_blank" rel="noopener">TU/e photonics</a><a href="https://www.oiforum.com" target="_blank" rel="noopener">OIF</a><a href="https://www.opencompute.org" target="_blank" rel="noopener">Open Compute Project</a><a href="https://www.lightcounting.com" target="_blank" rel="noopener">LightCounting</a><a class="eu" href="https://www.yolegroup.com" target="_blank" rel="noopener">Yole Group</a><a href="https://www.ofcconference.org" target="_blank" rel="noopener">OFC conference</a><a class="eu" href="https://www.ecocexhibition.com" target="_blank" rel="noopener">ECOC</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="chapter" id="startup">
+  <div class="ch-num">Chapter 10</div>
+  <h2>Where a small photonics team fits</h2>
+  <p class="intro">The giants own the switch chips, the foundry and the system. Startups win by solving one hard problem in their stack better than anyone, in a form they can qualify and buy. This chapter applies that to a three-person team with photonics research depth, nanomaterials and fabrication patents, ALD TiO₂ capability and access to TU/e facilities in Eindhoven.</p>
+
+  <div class="note smf" style="margin-top:22px">
+    <span class="label">Status of this chapter</span>
+    <p>These are hypotheses for the team to test with customers, not conclusions. The fit ratings are our reading of the public landscape against the team's stated assets.</p>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Entry point</th><th>What you would sell</th><th>Team fit</th><th>Capital</th><th>Time to revenue</th><th>Main risk</th></tr></thead>
+    <tbody>
+      <tr><td class="k">A. Thin-film process services<span class="sub">ALD for photonic packaging</span></td><td>Facet passivation and AR coatings for InP lasers and edge couplers, moisture barriers for PICs and engines, coatings on fiber arrays and micro-optics</td><td><span class="dots" aria-label="High fit"><i class="f"></i><i class="f"></i><i class="f"></i></span></td><td>Low to medium</td><td class="n">6–18 months</td><td>Becoming a low-margin job shop; long customer qualification</td></tr>
+      <tr><td class="k">B. Athermal photonics IP<span class="sub">TiO₂ cladding for rings</span></td><td>Process IP and licences that cut heater power and drift of ring modulators and filters near hot ASICs</td><td><span class="dots" aria-label="High fit"><i class="f"></i><i class="f"></i><i class="f"></i></span></td><td>Medium</td><td class="n">3–5 years</td><td>Fitting a foundry process flow (thermal budget, contamination); MZM and TFLN may sidestep rings</td></tr>
+      <tr><td class="k">C. Coupling components</td><td>Mode converters, micro-optics, detachable fiber-to-PIC interfaces</td><td><span class="dots" aria-label="Medium fit"><i class="f"></i><i class="f"></i><i></i></span></td><td>Medium to high</td><td class="n">2–4 years</td><td>Crowded; connector majors have customer access</td></tr>
+      <tr><td class="k">D. Reliability and qualification lab</td><td>Damp-heat, high-temperature and lifetime testing of lasers and engines to hyperscaler specs</td><td><span class="dots" aria-label="Medium fit"><i class="f"></i><i class="f"></i><i></i></span></td><td>Medium</td><td class="n">1–2 years</td><td>Hard to scale; competes with in-house labs</td></tr>
+      <tr><td class="k">E. Wafer-level optical test</td><td>Probing and metrology for known-good optical engines</td><td><span class="dots" aria-label="Medium fit"><i class="f"></i><i class="f"></i><i></i></span></td><td>High</td><td class="n">2–4 years</td><td>Test equipment majors dominate; better as a partner</td></tr>
+      <tr><td class="k">F. Full optical engine or CPO module</td><td>Your own engine competing in the socket</td><td><span class="dots" aria-label="Low fit"><i class="f"></i><i></i><i></i></span></td><td>Very high, $100M+</td><td class="n">5+ years</td><td>Competing with Nvidia, Broadcom, TSMC and startups funded at $500M+</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="prose">
+    <h3>A possible sequence</h3>
+    <ol>
+      <li><b>Start with A.</b> A coating and passivation service generates early revenue, puts you inside customers' engineering teams, and produces reliability data you could not get otherwise.</li>
+      <li><b>Build B on that access.</b> Use customer feedback and TU/e facilities to develop athermal or low-loss TiO₂ processes, file patents, and validate them on real PICs from a foundry multi-project wafer.</li>
+      <li><b>Exit or scale through partners.</b> License to foundries and engine makers, or become the specialist materials supplier that an engine maker or foundry acquires.</li>
+    </ol>
+    <p>Optical sensing remains a useful hedge. The same thin-film and PIC know-how sells into LiDAR, spectroscopy and biosensing, which have shorter qualification cycles than hyperscale data centers.</p>
+
+    <h3>Questions to answer in the first 90 days</h3>
+    <ul>
+      <li>Which failure modes do engine makers and laser suppliers actually see near the ASIC: facet degradation, moisture, outgassing, ring drift? Who pays to fix them?</li>
+      <li>What coupling loss, back-reflection and temperature range must a coating or cladding meet, and how is it qualified (Telcordia GR-468-style testing or hyperscaler-specific)?</li>
+      <li>Is ALD TiO₂ compatible with the thermal budget and contamination rules of TSMC, GF, ST or imec back-end flows?</li>
+      <li>How much heater power per ring could athermal cladding save, in pJ/bit, at the system level?</li>
+      <li>Who is the first buyer: a foundry, an engine maker, a laser maker, or an OSAT? What volume and price would they commit to?</li>
+      <li>What does the patent landscape for athermal claddings and facet passivation look like?</li>
+    </ul>
+
+    <h3>European resources to look into</h3>
+    <ul>
+      <li><b>PhotonDelta</b>: the Dutch integrated photonics programme on High Tech Campus Eindhoven, with funding, network and a contribution of about €54 million to the European <b>PIXEurope</b> photonics pilot line<sup class="ref"><a href="#s47">47</a></sup>.</li>
+      <li><b>TU/e</b>: photonic integration research with roughly 300 researchers<sup class="ref"><a href="#s49">49</a></sup>, cleanroom access, and existing data-center spin-offs such as PhotonX Networks<sup class="ref"><a href="#s48">48</a></sup>.</li>
+      <li><b>EU programmes</b>: EIC Accelerator (grant plus equity for deep tech), Chips Joint Undertaking pilot lines, and regional Brainport programmes. Check current calls and eligibility before planning on any of them.</li>
+      <li><b>Investors</b> active in Dutch photonics include PhotonDelta's own fund and deep-tech funds such as Innovation Industries.</li>
+    </ul>
+  </div>
+
+  <details class="deep">
+    <summary>Specialist note <span>· why TiO₂ is interesting here, and what could go wrong</span></summary>
+    <div class="body">
+      <ul>
+        <li><b>Negative thermo-optic coefficient.</b> TiO₂ (amorphous or anatase) has dn/dT of roughly −1 × 10⁻⁴ K⁻¹, opposite in sign to silicon and SiN. A cladding of the right thickness can cancel the ring's thermal shift over a temperature window. This is published in academic literature; the open question is manufacturability.</li>
+        <li><b>High index and low loss.</b> Index around 2.2 to 2.5 makes TiO₂ useful for compact passive structures, AR stacks and mode converters.</li>
+        <li><b>ALD conformality.</b> ALD gives uniform, pinhole-free films on high-aspect-ratio features and facets, suited to passivation and moisture barriers (often in TiO₂/Al₂O₃ nanolaminates).</li>
+        <li><b>Risks.</b> Crystallisation of TiO₂ above roughly 300 to 400 °C changes index and loss; film stress; hydrogen content; and whether a foundry will accept a new material late in its flow. Each needs early data.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- 11 -->
+<section class="chapter" id="glossary">
+  <div class="ch-num">Chapter 11</div>
+  <h2>Glossary</h2>
+  <p class="intro">The terms you will meet in papers, pitch decks and customer calls. Search or filter by topic.</p>
+  <div class="gl-tools">
+    <label for="glSearch" class="label" style="position:absolute;left:-9999px">Search the glossary</label>
+    <input id="glSearch" type="search" placeholder="Search terms, e.g. PAM4, ELSFP, shoreline" autocomplete="off">
+    <div class="chips" id="glChips" role="group" aria-label="Filter by topic"></div>
+  </div>
+  <div class="gl-count" id="glCount" aria-live="polite"></div>
+  <dl class="gl" id="glList"></dl>
+</section>
+
+<!-- 12 -->
+<section class="chapter" id="sources">
+  <div class="ch-num">Chapter 12</div>
+  <h2>Sources and further reading</h2>
+  <p class="intro">Numbered references used throughout the guide, current to mid-October 2026. Vendor claims are reported as claims.</p>
+  <ol class="src" style="margin-top:22px">
+    <li id="s1"><a href="https://www.optics.org/news/nvidia-reveals-plan-to-scale-ai-factories-with-co-packaged-optics" target="_blank" rel="noopener">optics.org: Nvidia reveals plan to scale AI factories with co-packaged optics</a></li>
+    <li id="s2"><a href="https://investors.broadcom.com/news-releases/news-release-details/broadcom-announces-tomahawkr-6-davisson-industrys-first-1024" target="_blank" rel="noopener">Broadcom: Tomahawk 6 Davisson, 102.4 Tb/s CPO switch (Oct 2025)</a></li>
+    <li id="s3"><a href="https://convergedigest.com/?p=106025" target="_blank" rel="noopener">Converge Digest: Davisson architecture, 16 × 6.4 Tb/s engines, ELSFP</a></li>
+    <li id="s4"><a href="https://www.hpcwire.com/2026/04/20/inside-nvidias-silicon-photonics-roadmap/" target="_blank" rel="noopener">HPCwire: Inside Nvidia's silicon photonics roadmap (Apr 2026)</a></li>
+    <li id="s5"><a href="https://counterpointresearch.com/jp/insights/from-blackwell-to-feynman-analyzing-nvidias-optics-roadmap" target="_blank" rel="noopener">Counterpoint: From Blackwell to Feynman, Nvidia's optics roadmap</a></li>
+    <li id="s6"><a href="https://siliconangle.com/2026/03/02/nvidia-invests-4b-co-packaged-optics-suppliers-lumentum-coherent/" target="_blank" rel="noopener">SiliconANGLE: Nvidia invests $4B in Lumentum and Coherent (Mar 2026)</a></li>
+    <li id="s7"><a href="https://creativestrategies.com/research/tsmc-coupe-why-the-cowos-pattern-is-repeating-in-silicon-photonics/" target="_blank" rel="noopener">Creative Strategies: TSMC COUPE and silicon photonics</a></li>
+    <li id="s8"><a href="https://www.trendforce.com/news/2026/08/31/news-tsmc-soic-cowos-drive-50x-compute-by-2029-silicon-photonics-to-top-50-of-transceiver-market-by-2027/" target="_blank" rel="noopener">TrendForce: silicon photonics to top 50% of transceivers by 2027</a></li>
+    <li id="s9"><a href="https://www.trendforce.com/news/2026/04/01/news-silicon-photonics-race-intensifies-as-tsmc-targets-2026-coupe-production-samsung-eyes-2029-cpo-turnkey/" target="_blank" rel="noopener">TrendForce: TSMC COUPE in 2026, Samsung CPO turnkey 2029</a></li>
+    <li id="s10"><a href="https://convergedigest.com/marvell-bets-big-on-optical-scale-up-acquires-celestial-ai-for-photonic-fabric/" target="_blank" rel="noopener">Converge Digest: Marvell acquires Celestial AI</a></li>
+    <li id="s11"><a href="https://sdxcentral.com/news/optical-interconnect-startup-ayar-labs-closes-500m-funding-round-backed-by-nvidia-amd" target="_blank" rel="noopener">SDxCentral: Ayar Labs closes $500M Series E</a></li>
+    <li id="s12"><a href="https://blog.st.com/pic100" target="_blank" rel="noopener">STMicroelectronics: PIC100 silicon photonics technology</a></li>
+    <li id="s13"><a href="https://optics.org/news/stmicro-ramps-silicon-photonics-platform" target="_blank" rel="noopener">optics.org: STMicro ramps PIC100 (Mar 2026)</a></li>
+    <li id="s14"><a href="https://dev.convergedigest.com/?p=84531" target="_blank" rel="noopener">Converge Digest: OIF 3.2T Co-Packaged Module IA</a></li>
+    <li id="s15"><a href="https://www.businesswire.com/news/home/20260218845379/en" target="_blank" rel="noopener">OIF: interoperability at OFC 2026 (CEI-448G, ELSFP)</a></li>
+    <li id="s16"><a href="https://grouper.ieee.org/groups/802/3/email_dialog/msg01844.html" target="_blank" rel="noopener">IEEE 802.3: P802.3dj Standards Association recirculation ballot (Jun 2026)</a></li>
+    <li id="s17"><a href="https://www.hengtongglobal.com/info/tfln-3-2t-optics-fiber-cabling-103603656.html" target="_blank" rel="noopener">Hengtong: TFLN and 3.2T optics, 400G/lane study group</a></li>
+    <li id="s18"><a href="https://www.hengtongglobal.com/info/ofc-2026-optical-modules-whats-real-whats-next-103451285.html" target="_blank" rel="noopener">Hengtong: OFC 2026 optical modules, 400G/lane DSP</a></li>
+    <li id="s19"><a href="https://www.lumentum.com/en/blog/enabling-next-phase-ai-optical-infrastructure" target="_blank" rel="noopener">Lumentum: OFC 2026 takeaways, 3.2T and 800 mW lasers</a></li>
+    <li id="s20"><a href="https://www.arista.com/jp/company/news/press-release/23697-pr-20260311" target="_blank" rel="noopener">Arista: XPO 12.8 Tb/s liquid-cooled pluggable MSA</a></li>
+    <li id="s21"><a href="https://convergedigest.com/?p=109261" target="_blank" rel="noopener">Converge Digest: Open CPX MSA</a></li>
+    <li id="s22"><a href="https://lightcounting.com/research-note/march-2026-ofc-bringing-order-to-ais-scaling-challenges-442" target="_blank" rel="noopener">LightCounting: OFC 2026, bringing order to AI's scaling challenges</a></li>
+    <li id="s23"><a href="https://www.lightcounting.com/research-note/july-2026-co-packaged-and-near-packaged-optics-cponpo" target="_blank" rel="noopener">LightCounting: CPO/NPO conference highlights (Jul 2026)</a></li>
+    <li id="s24"><a href="https://www.synopsys.com/articles/ethernet-standards-scale-up-ai.html" target="_blank" rel="noopener">Synopsys: ESUN, SUE and UALink for scale-up AI</a></li>
+    <li id="s25"><a href="https://www.hpcwire.com/aiwire/2026/09/14/cornelis-to-build-scale-up-interconnect-using-ualink-and-esun/" target="_blank" rel="noopener">HPCwire: Cornelis builds on UALink and ESUN (Sep 2026)</a></li>
+    <li id="s26"><a href="https://techinsights.com/ko/node/61899" target="_blank" rel="noopener">TechInsights: CPO market and supply chain</a></li>
+    <li id="s27"><a href="https://evertiq.com/news/2026-05-06-ai-boom-pushes-hyperscaler-capex-towards-usd-830-billion-in-2026" target="_blank" rel="noopener">Evertiq / TrendForce: hyperscaler capex toward $830B in 2026</a></li>
+    <li id="s28"><a href="https://www.semi.org/en/blogs/co-packaged-optics-at-scale-silicon-photonics-automation-and-standards-for-the-aI-era-an-interview-with-vikas-gupta-senior-fellow-silicon-photonics-business-at-globalFoundries" target="_blank" rel="noopener">SEMI: CPO at scale, interview with GlobalFoundries</a></li>
+    <li id="s29"><a href="https://semiengineering.com/transforming-test-for-co-packaged-optics/" target="_blank" rel="noopener">Semiconductor Engineering: transforming test for CPO</a></li>
+    <li id="s30"><a href="https://blogs.sw.siemens.com/semiconductor-packaging/2026/02/05/five-key-trends-of-co-packaged-optics-cpo-in-2026/" target="_blank" rel="noopener">Siemens: five key trends of CPO in 2026</a></li>
+    <li id="s31"><a href="https://eps.ieee.org/wp-content/uploads/2026/03/Linear-Pluggable-Optics_V2-UPDATED.pdf" target="_blank" rel="noopener">IEEE EPS: Linear pluggable optics overview (PDF)</a></li>
+    <li id="s32"><a href="https://www.yolegroup.com/product/report/optical-transceivers-for-datacom-and-telecom-2026/" target="_blank" rel="noopener">Yole: Optical transceivers for datacom and telecom 2026</a></li>
+    <li id="s33"><a href="https://www.meticulousresearch.com/product/co-packaged-optics-market-6748/toc" target="_blank" rel="noopener">Meticulous Research: CPO market (Bailly power data)</a></li>
+    <li id="s34"><a href="https://fintool.com/news/nvidia-cpo-webinar-ai-factories" target="_blank" rel="noopener">Fintool: Nvidia CPO webinar, first customers and claims</a></li>
+    <li id="s35"><a href="https://tech.yahoo.com/computing/articles/nvidia-updates-data-center-roadmap-204256462.html" target="_blank" rel="noopener">Tom's Hardware via Yahoo: Nvidia roadmap, Feynman and optical NVLink</a></li>
+    <li id="s36"><a href="https://longportapp.cn/en/topics/39303579" target="_blank" rel="noopener">Dolphin Research: GTC 2026 takeaways, copper and CPO coexist</a></li>
+    <li id="s37"><a href="https://yespress.io/ayar-labs" target="_blank" rel="noopener">Ayar Labs company profile: TeraPHY 8 Tb/s, ~5 pJ/bit</a></li>
+    <li id="s38"><a href="https://www.barchart.com/story/news/795027/coherent-to-unveil-breakthrough-ai-scale-optical-innovations-and-industry-leadership-at-ofc-2026" target="_blank" rel="noopener">Coherent: OFC 2026 showcase, 400G/lane and CPO</a></li>
+    <li id="s39"><a href="https://www.hpcwire.com/?p=189097" target="_blank" rel="noopener">HPCwire: Nvidia invests in Lumentum, Coherent and Scintil</a></li>
+    <li id="s40"><a href="https://counterpointresearch.com/cn/insights/open-standard-multi-sorce-connector-agreements-dominate-attention-at-ofc26" target="_blank" rel="noopener">Counterpoint: open MSAs at OFC 2026, Lightmatter Passage L20</a></li>
+    <li id="s41"><a href="https://borecraft.com/?p=16010" target="_blank" rel="noopener">Borecraft: TSMC silicon photonics capacity, copper reach at 224G</a></li>
+    <li id="s42"><a href="https://penchan.co/en/market/ai/supply-chain/cpo/" target="_blank" rel="noopener">Penchan: CPO vs pluggables in 2026 (TrendForce figures)</a></li>
+    <li id="s43"><a href="https://longportapp.cn/news/277550781" target="_blank" rel="noopener">Wallstreetcn: Barclays on 400 mW CW lasers for CPO</a></li>
+    <li id="s44"><a href="https://www.digitimes.com/news/a20250123PD220.html" target="_blank" rel="noopener">DIGITIMES: TSMC COUPE generations and timing</a></li>
+    <li id="s45"><a href="https://www.ofcconference.org/news-media/exhibitor-news/onetouch-technology-presents-its-single-wavelength-400g-per-lane-heterogeneous-integrated-thin-film" target="_blank" rel="noopener">OFC: TFLN-on-silicon modulator beyond 110 GHz</a></li>
+    <li id="s46"><a href="https://www.light-am.com/custom/category/Letter%20to%20the%20Editor" target="_blank" rel="noopener">Light: Advanced Manufacturing, volume TFLN modulators, Vπ below 3 V</a></li>
+    <li id="s47"><a href="https://wileyindustrynews.com/en/companies/cooperatie-photon-delta-u-a/" target="_blank" rel="noopener">PhotonDelta news, including PIXEurope contribution</a></li>
+    <li id="s48"><a href="https://www.tue.nl/en/impact/tue-participations/spin-offs-in-tue-participations/photonx-networks" target="_blank" rel="noopener">TU/e: PhotonX Networks spin-off</a></li>
+    <li id="s49"><a href="https://ioplus.nl/archive/nl/photondelta-opent-institute-for-photonic-integration-belangrijke-stap-naar-duurzamere-toekomst/" target="_blank" rel="noopener">Innovation Origins: TU/e Institute for Photonic Integration (Dutch)</a></li>
+    <li id="s50"><a href="https://convergedigest.com/ocp-summit-keynote-broadcoms-ram-velaga-outlines-esun/" target="_blank" rel="noopener">Converge Digest: Broadcom on ESUN and Ultra Ethernet NICs</a></li>
+    <li id="s51"><a href="https://cloud.google.com/blog/topics/systems/the-evolution-of-googles-jupiter-data-center-network/" target="_blank" rel="noopener">Google Cloud: the evolution of Google's Jupiter data center network (OCS)</a></li>
+    <li id="s52"><a href="https://arxiv.org/pdf/2208.10041.pdf" target="_blank" rel="noopener">arXiv: Mission Apollo, Google's MEMS optical circuit switching</a></li>
+    <li id="s53"><a href="https://convergedigest.com/salience-labs-intros-32-port-all-optical-silicon-photonic-switch/" target="_blank" rel="noopener">Converge Digest: Salience Labs 32-port all-optical silicon photonic switch</a></li>
+    <li id="s54"><a href="https://www.eejournal.com/industry_news/salience-labs-launches-industrys-highest-performing-32-port-all-optical-silicon-photonic-switch-to-transform-the-networking-layer-of-ai-datacenter-infrastructure-share/" target="_blank" rel="noopener">EE Journal: Salience Labs launches 32-port optical switch</a></li>
+    <li id="s55"><a href="https://nand-research.com/nvidia-strategic-investments-in-optical-interconnects/" target="_blank" rel="noopener">NAND Research: Nvidia's optical investments; Lumentum and Coherent OCS</a></li>
+  <li id="s56"><a href="https://www.remio.ai/post/ayar-labs-funding-hits-650-million-as-optical-i-o-faces-its-manufacturing-test" target="_blank" rel="noopener">Remio: Ayar Labs funding reaches $650M in 2026</a></li>
+    <li id="s57"><a href="https://www.techspot.com/news/109190-nvidia-turns-silicon-photonics-supercharge-next-gen-ai.html" target="_blank" rel="noopener">TechSpot: Nvidia silicon photonics; AMD acquires Enosemi</a></li>
+    <li id="s58"><a href="https://newmarketpitch.com/blogs/news/semiconductor-chip-to-chip-interconnect-startup" target="_blank" rel="noopener">New Market Pitch: chip-to-chip interconnect startups compared</a></li>
+    <li id="s59"><a href="https://eps.ieee.org/wp-content/uploads/2026/05/HIR_9_Photonics_rev0.9.pdf" target="_blank" rel="noopener">IEEE Heterogeneous Integration Roadmap, 2025 edition, Chapter 9: Photonics (Rev 0.9, March 2026)</a></li>
+    <li id="s60"><a href="https://eps.ieee.org/technology/heterogeneous-integration-roadmap/2025-edition/" target="_blank" rel="noopener">IEEE EPS: Heterogeneous Integration Roadmap, 2025 edition (all chapters)</a></li>
+
+  </ol>
+</section>
+
+</main>
+</div>
+</div>
+
+<div id="opportunities" class="panel" role="tabpanel" aria-labelledby="tab-opps" hidden>
+<header class="hero hero-sm">
+  <div class="eyebrow">Startup building · Updated 18 October 2026</div>
+  <h1>Challenges and opportunities, <span class="lit">in one place</span></h1>
+  <p class="lede">Everything in the field guide that matters for building a company in co-packaged optics, gathered on one page: the forces working for and against a new entrant, fourteen specific openings in the value chain, the business obstacles, and the deals that show what investors and acquirers pay for.</p>
+  <div class="tracks">
+    <div class="track t1"><b>Tailwinds</b>
+      <ul class="plain">
+        <li>CPO is shipping in volume switches from Nvidia and Broadcom, so demand for its components is real<sup class="ref"><a href="#s23">23</a>,<a href="#s2">2</a></sup></li>
+        <li>Cloud capex near $830 billion in 2026, mostly for AI<sup class="ref"><a href="#s27">27</a></sup></li>
+        <li>The bottleneck has moved to components: lasers, fiber attach, test<sup class="ref"><a href="#s6">6</a>,<a href="#s23">23</a></sup></li>
+        <li>Open multi-source agreements are opening the engine layer to more suppliers<sup class="ref"><a href="#s21">21</a></sup></li>
+      </ul>
+    </div>
+    <div class="track t3"><b>Headwinds</b>
+      <ul class="plain">
+        <li>A handful of buyers with enormous bargaining power</li>
+        <li>Qualification cycles of one to three years</li>
+        <li>Giants are integrating vertically and locking in suppliers</li>
+        <li>Copper and pluggables keep lasting longer than forecast<sup class="ref"><a href="#s36">36</a></sup></li>
+      </ul>
+    </div>
+    <div class="track t2"><b>Where small teams win</b>
+      <ul class="plain">
+        <li>Solve a problem every camp shares, instead of betting on one architecture</li>
+        <li>Sell to the suppliers of the giants first</li>
+        <li>Build a data moat: reliability and yield data take years to collect</li>
+        <li>Be easy to acquire: chip companies are buying photonics teams</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="chapter" id="openings">
+  <div class="ch-num">Part A</div>
+  <h2>Fourteen openings in the value chain</h2>
+  <p class="intro">Each card pairs a problem the industry has today with what a company could sell to solve it. Filter by area or by when the market is expected to pay. Entry barrier combines capital, time to first revenue and strength of incumbents.</p>
+
+  <div class="filters">
+    <div class="chips" id="areaChips" role="group" aria-label="Filter by area">
+      <button type="button" id="area-all" data-area="all" aria-pressed="true">All areas</button>
+      <button type="button" id="area-pack" data-area="pack" aria-pressed="false">Packaging and test</button>
+      <button type="button" id="area-mat" data-area="mat" aria-pressed="false">Materials</button>
+      <button type="button" id="area-dev" data-area="dev" aria-pressed="false">Devices and light sources</button>
+      <button type="button" id="area-svc" data-area="svc" aria-pressed="false">Services and supply</button>
+    </div>
+    <div class="chips" id="whenChips" role="group" aria-label="Filter by timing">
+      <button type="button" id="when-all" data-when="all" aria-pressed="true">Any time</button>
+      <button type="button" id="when-now" data-when="now" aria-pressed="false">Now</button>
+      <button type="button" id="when-mid" data-when="mid" aria-pressed="false">2027–28</button>
+      <button type="button" id="when-late" data-when="late" aria-pressed="false">2029 and later</button>
+    </div>
+  </div>
+  <div class="gl-count" id="oppCount" aria-live="polite">Showing 14 of 14 openings</div>
+
+  <div class="opp-grid" id="oppGrid">
+
+    <article class="oc" data-area="pack" data-when="now">
+      <header><h4>Fiber attach and coupling</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Aligning dozens of fibers to each optical engine at sub-micron accuracy, at volume, is not solved. It drives both yield and cost.</dd></div>
+        <div><dt>Opening</dt><dd>Detachable fiber connectors, passive alignment features, micro-optics, low-loss edge couplers and mode converters.</dd></div>
+        <div><dt>Who buys</dt><dd>Optical engine makers, assembly and test houses (OSATs), foundry packaging lines.</dd></div>
+        <div><dt>Signal</dt><dd>Analysts call fiber attach one of the biggest open problems. TSMC uses a single micro-lens supplier, Himax, for its first two COUPE generations<sup class="ref"><a href="#s23">23</a>,<a href="#s44">44</a>,<a href="#s28">28</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-pack">Packaging and test</span><span class="bar" aria-label="Entry barrier medium">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="pack" data-when="now">
+      <header><h4>Known-good optical engine test</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>One bad engine can scrap a package holding a very expensive switch or GPU chip, and co-packaged assemblies are hard to rework.</dd></div>
+        <div><dt>Opening</dt><dd>Wafer-level optical probing, fast engine test before assembly, burn-in, or testing as a service.</dd></div>
+        <div><dt>Who buys</dt><dd>Foundries, OSATs, engine makers. Test equipment majors are likely partners or acquirers.</dd></div>
+        <div><dt>Signal</dt><dd>Test vendors report strong demand from foundries, OSATs and startups; limited reworkability is a top yield concern<sup class="ref"><a href="#s29">29</a>,<a href="#s30">30</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-pack">Packaging and test</span><span class="bar" aria-label="Entry barrier high">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="mat" data-when="now">
+      <header><h4>Laser facet passivation and coatings</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>CPO concentrates light into a few continuous-wave lasers of 400 to 800 mW, which stresses facets and coatings. Lasers are already the supply bottleneck.</dd></div>
+        <div><dt>Opening</dt><dd>Facet passivation, anti-reflection and high-reflection coatings, moisture barriers, plus the reliability data to prove them.</dd></div>
+        <div><dt>Who buys</dt><dd>Laser makers such as Lumentum, Coherent and Sumitomo; external laser module (ELSFP) makers.</dd></div>
+        <div><dt>Signal</dt><dd>Nvidia committed $4 billion to secure laser supply; 800 mW lasers shown at OFC 2026<sup class="ref"><a href="#s6">6</a>,<a href="#s19">19</a>,<a href="#s43">43</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-mat">Materials</span><span class="bar" aria-label="Entry barrier low">Barrier <span class="dots"><i class="f"></i><i></i><i></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="mat" data-when="mid">
+      <header><h4>Thermal stability next to hot chips</h4><span class="tag ann">2027–28</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Optics sit next to kilowatt-class chips. Ring modulators drift with temperature and need heaters that burn power.</dd></div>
+        <div><dt>Opening</dt><dd>Athermal claddings, thermal isolation structures, efficient tuning and control circuits.</dd></div>
+        <div><dt>Who buys</dt><dd>Foundries and engine makers using ring-based designs.</dd></div>
+        <div><dt>Signal</dt><dd>Marvell names thermal stability as the key differentiator of the Celestial AI technology it acquired<sup class="ref"><a href="#s10">10</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-mat">Materials</span><span class="bar" aria-label="Entry barrier medium">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="mat" data-when="now">
+      <header><h4>Moisture and environmental protection</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Optical engines are usually not hermetically sealed, yet must survive years of heat and humidity inside dense, liquid-cooled systems.</dd></div>
+        <div><dt>Opening</dt><dd>Thin-film barriers and encapsulation for PICs and fiber interfaces, qualified to damp-heat and temperature-cycling tests.</dd></div>
+        <div><dt>Who buys</dt><dd>Engine makers and OSATs.</dd></div>
+        <div><dt>Signal</dt><dd>Reliability under sustained load is listed among the main barriers to broad CPO adoption<sup class="ref"><a href="#s30">30</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-mat">Materials</span><span class="bar" aria-label="Entry barrier low">Barrier <span class="dots"><i class="f"></i><i></i><i></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="svc" data-when="now">
+      <header><h4>Reliability and qualification lab</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Hyperscalers expect CPO to be at least as reliable as pluggables, and every qualification takes one to three years.</dd></div>
+        <div><dt>Opening</dt><dd>Independent lifetime, damp-heat and failure-analysis testing for lasers, engines and connectors.</dd></div>
+        <div><dt>Who buys</dt><dd>Startups and mid-size suppliers without large in-house labs.</dd></div>
+        <div><dt>Signal</dt><dd>Nvidia markets CPO on reliability (13× better laser reliability), so suppliers must prove it<sup class="ref"><a href="#s34">34</a>,<a href="#s30">30</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-svc">Services and supply</span><span class="bar" aria-label="Entry barrier medium">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="pack" data-when="now">
+      <header><h4>Process metrology and inline control</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Silicon photonics shows more process variation than standard CMOS, and nanometre shifts change optical behaviour.</dd></div>
+        <div><dt>Opening</dt><dd>Inline optical metrology, film thickness and index monitoring, wafer-map analytics that predict engine yield.</dd></div>
+        <div><dt>Who buys</dt><dd>Photonics foundries and pilot lines.</dd></div>
+        <div><dt>Signal</dt><dd>Higher variability and known-good-die assurance are named as manufacturing priorities for 2026–27<sup class="ref"><a href="#s30">30</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-pack">Packaging and test</span><span class="bar" aria-label="Entry barrier medium">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="pack" data-when="mid">
+      <header><h4>Serviceable engine sockets</h4><span class="tag ann">2027–28</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Operators lose the hot-swappable module when optics move onto the package.</dd></div>
+        <div><dt>Opening</dt><dd>Components for the Open CPX socket ecosystem: optical connectors, alignment features, contacts and field diagnostics.</dd></div>
+        <div><dt>Who buys</dt><dd>Open CPX members and switch makers.</dd></div>
+        <div><dt>Signal</dt><dd>Open CPX formed in March 2026 with connector majors Molex and Samtec as members, so partnering beats competing here<sup class="ref"><a href="#s21">21</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-pack">Packaging and test</span><span class="bar" aria-label="Entry barrier high">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="dev" data-when="now">
+      <header><h4>Low-loss parts for optical circuit switches</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>An optical circuit switch never regenerates the light, so every fraction of a dB in waveguides, crossings and facets limits port count.</dd></div>
+        <div><dt>Opening</dt><dd>Low-loss silicon nitride routing, sub-dB couplers, low-reflection facet coatings.</dd></div>
+        <div><dt>Who buys</dt><dd>OCS makers such as Lumentum, Coherent and Salience Labs.</dd></div>
+        <div><dt>Signal</dt><dd>Google runs most of its data-center networks on optical circuit switches; silicon photonic OCS products appeared in 2026<sup class="ref"><a href="#s51">51</a>,<a href="#s53">53</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-dev">Devices and light sources</span><span class="bar" aria-label="Entry barrier medium">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="dev" data-when="mid">
+      <header><h4>Faster modulators: TFLN and BTO</h4><span class="tag ann">2027–28</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>400G per lane needs modulators above 100 GHz at low drive voltage, beyond what plain silicon does comfortably.</dd></div>
+        <div><dt>Opening</dt><dd>Thin-film lithium niobate or barium titanate devices, wafer-scale film processes, or bonding these films onto silicon.</dd></div>
+        <div><dt>Who buys</dt><dd>Transceiver and engine makers; foundries adding new materials.</dd></div>
+        <div><dt>Signal</dt><dd>TFLN moved from lab to an industry platform at OFC 2026, with expanding foundry capacity<sup class="ref"><a href="#s18">18</a>,<a href="#s46">46</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-dev">Devices and light sources</span><span class="bar" aria-label="Entry barrier high">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="dev" data-when="mid">
+      <header><h4>Short, dense links for scale-up</h4><span class="tag ann">2027–28</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Optical scale-up across racks needs huge numbers of very short, cheap, low-latency links between GPUs and switches.</dd></div>
+        <div><dt>Opening</dt><dd>VCSEL or microLED arrays, multicore fiber, simple links without DSP.</dd></div>
+        <div><dt>Who buys</dt><dd>Accelerator and switch makers; members of the OCI multi-source agreement.</dd></div>
+        <div><dt>Signal</dt><dd>Nvidia plans CPO scale-up for 2028; Lumentum showed VCSEL-based scale-up optics at OFC 2026<sup class="ref"><a href="#s4">4</a>,<a href="#s19">19</a>,<a href="#s22">22</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-dev">Devices and light sources</span><span class="bar" aria-label="Entry barrier high">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="dev" data-when="late">
+      <header><h4>Multi-wavelength light sources</h4><span class="tag proj">2029+</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Dense wavelength multiplexing needs 8 to 16 wavelengths per fiber, and banks of single lasers are costly and bulky.</dd></div>
+        <div><dt>Opening</dt><dd>Comb lasers, laser arrays, III-V material bonded onto silicon.</dd></div>
+        <div><dt>Who buys</dt><dd>Optical I/O chiplet makers and switch vendors.</dd></div>
+        <div><dt>Signal</dt><dd>Nvidia invested in Scintil Photonics; Ayar Labs ships a multi-wavelength light source with its chiplets<sup class="ref"><a href="#s39">39</a>,<a href="#s37">37</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-dev">Devices and light sources</span><span class="bar" aria-label="Entry barrier high">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="svc" data-when="now">
+      <header><h4>Photonic design and co-simulation</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Electronic and photonic chips must be designed together, and few teams are fluent in both.</dd></div>
+        <div><dt>Opening</dt><dd>Design services, component libraries for foundry PDKs, electronic-photonic co-simulation expertise.</dd></div>
+        <div><dt>Who buys</dt><dd>Companies entering CPO, and foundries building out their PDKs.</dd></div>
+        <div><dt>Signal</dt><dd>TSMC introduced an optical PDK for co-simulation with Cadence and Synopsys tools<sup class="ref"><a href="#s8">8</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-svc">Services and supply</span><span class="bar" aria-label="Entry barrier low">Barrier <span class="dots"><i class="f"></i><i></i><i></i></span></span></footer>
+    </article>
+
+    <article class="oc" data-area="svc" data-when="now">
+      <header><h4>European second source</h4><span class="tag ship">Now</span></header>
+      <dl>
+        <div><dt>Problem</dt><dd>Hyperscalers want resilient supply, while much optical manufacturing sits in China and Taiwan.</dd></div>
+        <div><dt>Opening</dt><dd>European-made components, coatings, assembly and test that qualify as a second source.</dd></div>
+        <div><dt>Who buys</dt><dd>Suppliers with European operations, European foundries and pilot lines.</dd></div>
+        <div><dt>Signal</dt><dd>ST is quadrupling silicon photonics output, backed by long-term customer capacity reservations; the EU funds the PIXEurope pilot line<sup class="ref"><a href="#s13">13</a>,<a href="#s47">47</a></sup>.</dd></div>
+      </dl>
+      <footer><span class="area a-svc">Services and supply</span><span class="bar" aria-label="Entry barrier medium">Barrier <span class="dots"><i class="f"></i><i class="f"></i><i></i></span></span></footer>
+    </article>
+
+  </div>
+  <p class="empty" id="oppEmpty" hidden>No openings match both filters. Choose another area or timing.</p>
+</section>
+
+<section class="chapter" id="obstacles">
+  <div class="ch-num">Part B</div>
+  <h2>Business obstacles and how to handle them</h2>
+  <p class="intro">The technical problems are listed above. These are the obstacles to building the company itself, each with the usual way small hardware companies get around it.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Obstacle</th><th>Why it bites in CPO</th><th>Common way around it</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Few, powerful buyers</td><td>A handful of hyperscalers, Nvidia, Broadcom and TSMC decide most purchases and set terms.</td><td>Sell first to their suppliers (laser makers, engine makers, OSATs) and design to multi-source agreements so several camps can buy.</td></tr>
+      <tr><td class="k">Long qualification</td><td>One to three years from first sample to volume order, longer than most seed funding lasts.</td><td>Earn service revenue early, start qualification on low-risk parts, and use standard reliability tests customers already trust.</td></tr>
+      <tr><td class="k">Capital and fab access</td><td>Cleanrooms, packaging lines and test tools cost far more than a startup can raise early.</td><td>University cleanrooms, multi-project wafer runs, EU pilot lines and partner foundries before building your own capacity.</td></tr>
+      <tr><td class="k">Vertical integration by giants</td><td>Nvidia invests in its suppliers; TSMC's platform locks in sole suppliers per component<sup class="ref"><a href="#s6">6</a>,<a href="#s44">44</a></sup>.</td><td>Aim to be the specialist inside a platform. Being the sole supplier of one part is a strong position, as Himax shows for COUPE micro-lenses.</td></tr>
+      <tr><td class="k">Standards still forming</td><td>Open CPX, XPO, OCI and proprietary designs compete; betting on the wrong one is a real risk<sup class="ref"><a href="#s42">42</a></sup>.</td><td>Choose technology that works in every form factor: coatings, couplers, test and reliability.</td></tr>
+      <tr><td class="k">Timing risk</td><td>Customers push copper and pluggables to their limit before switching to CPO<sup class="ref"><a href="#s36">36</a></sup>.</td><td>Pick products that also sell into pluggables today. Silicon photonics is already in over 40% of transceivers, so revenue need not wait for CPO<sup class="ref"><a href="#s13">13</a></sup>.</td></tr>
+      <tr><td class="k">Crowded patents</td><td>Large companies hold dense patent portfolios in photonic packaging and devices.</td><td>Run a freedom-to-operate search before committing, and file early on process know-how.</td></tr>
+      <tr><td class="k">Talent</td><td>Packaging and silicon photonics engineers are in high demand in the US and Taiwan.</td><td>Draw on regional photonics clusters and universities; offer equity and hard technical problems.</td></tr>
+      <tr><td class="k">Geopolitics and supply</td><td>Export controls, InP substrate supply and concentration of module makers in Asia add risk for buyers.</td><td>Turn it into a selling point: an allied, qualified second source.</td></tr>
+      <tr><td class="k">Funding cycle</td><td>Photonics valuations rose sharply in 2025–26 and could correct.</td><td>Plan around milestones, combine grants with equity, and avoid a cost base that needs the peak market.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="chapter" id="deals">
+  <div class="ch-num">Part C</div>
+  <h2>What investors and acquirers are paying for</h2>
+  <p class="intro">Recent deals show the pattern: chip companies buy photonics teams and secure component capacity, and investors fund optical I/O at scale.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>When</th><th>Deal</th><th>What it signals</th></tr></thead>
+    <tbody>
+      <tr><td class="n">2025</td><td>AMD acquires Enosemi, a photonics startup<sup class="ref"><a href="#s57">57</a></sup></td><td>Accelerator makers want in-house photonics talent.</td></tr>
+      <tr><td class="n">Dec 2025</td><td>Marvell agrees to buy Celestial AI for about $3.25 billion upfront, plus up to $2.25 billion on targets<sup class="ref"><a href="#s10">10</a></sup></td><td>Optical scale-up interconnect is worth billions before volume revenue.</td></tr>
+      <tr><td class="n">Mar 2026</td><td>Nvidia invests $2 billion each in Lumentum and Coherent, with purchase commitments<sup class="ref"><a href="#s6">6</a></sup></td><td>Lasers are the scarce component; capacity is bought years ahead.</td></tr>
+      <tr><td class="n">Mar 2026</td><td>Ayar Labs raises a $500 million Series E at $3.75 billion<sup class="ref"><a href="#s11">11</a></sup></td><td>Investors fund optical I/O chiplets through manufacturing scale-up.</td></tr>
+      <tr><td class="n">Sep 2026</td><td>Ayar Labs adds $150 million, for $650 million raised in 2026<sup class="ref"><a href="#s56">56</a></sup></td><td>The money now goes to production and test capacity.</td></tr>
+      <tr><td class="n">2026</td><td>Lightmatter has raised about $850 million in total<sup class="ref"><a href="#s58">58</a></sup></td><td>Two optical I/O companies hold most of the venture capital in the segment.</td></tr>
+      <tr><td class="n">2026</td><td>Nvidia invests in Scintil Photonics (France)<sup class="ref"><a href="#s39">39</a></sup></td><td>European laser technology can attract the largest buyer directly.</td></tr>
+      <tr><td class="n">2025–26</td><td>Himax is sole micro-lens supplier for TSMC COUPE generations 1 and 2<sup class="ref"><a href="#s44">44</a></sup></td><td>A narrow component can secure a locked-in position inside a platform.</td></tr>
+      <tr><td class="n">Mar 2026</td><td>ST reports long-term capacity reservations for its PIC100 platform<sup class="ref"><a href="#s13">13</a></sup></td><td>Hyperscalers commit to European photonics supply.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="chapter" id="validate">
+  <div class="ch-num">Part D</div>
+  <h2>Checklist before choosing an opening</h2>
+  <p class="intro">Answer these with real conversations, not desk research, before committing time and money to one of the openings above.</p>
+  <ol class="checklist">
+    <li><b>Who pays, and how much?</b> Name the first buyer, the price they would accept, and the volume they could commit to.</li>
+    <li><b>Which metric moves?</b> Translate the benefit into pJ/bit, dB of loss, yield, reliability or cost per Gb/s (see chapter 4 of the field guide).</li>
+    <li><b>Does it work in every camp?</b> Check that the product fits Nvidia, Broadcom and open-standard designs, and pluggables too.</li>
+    <li><b>Can it be qualified?</b> Find out which tests the buyer requires and how long they take.</li>
+    <li><b>Is it compatible with the process flow?</b> Confirm temperature limits, contamination rules and materials accepted by the target foundry or assembly line.</li>
+    <li><b>Is there freedom to operate?</b> Search patents before building, and decide what you will file.</li>
+    <li><b>What is the cheapest proof?</b> Define a first demonstration that runs on shared facilities and multi-project wafers.</li>
+    <li><b>Who would acquire it?</b> List the three companies most likely to buy the company, and check they buy companies like it.</li>
+  </ol>
+  <p style="margin-top:22px"><a class="btn" href="#startup" style="text-decoration:none">See how this applies to a specific team in chapter 10</a></p>
+</section>
+</div>
+
+<footer>
+  <p>CPO Field Guide · updated 18 October 2026. Diagrams are original schematics, not to scale. Company names are used for identification only. Figures are drawn from public sources listed above; check the original before quoting in a pitch.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  /* ---------- specialist notes toggle ---------- */
+  var btn=document.getElementById('toggleDeep');
+  btn.addEventListener('click',function(){
+    var open=btn.getAttribute('aria-pressed')!=='true';
+    document.querySelectorAll('details.deep').forEach(function(d){d.open=open;});
+    btn.setAttribute('aria-pressed',open?'true':'false');
+    btn.textContent=open?'Close all specialist notes':'Open all specialist notes';
+  });
+
+  /* ---------- chapter rail highlighting ---------- */
+  var links=[].slice.call(document.querySelectorAll('#railList a'));
+  var list=document.getElementById('railList');
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  function setOn(id){
+    links.forEach(function(a){a.classList.toggle('on',a===map[id]);});
+    var a=map[id];
+    if(a && list.scrollWidth>list.clientWidth){
+      var target=a.offsetLeft-list.clientWidth/2+a.offsetWidth/2;
+      list.scrollLeft=Math.max(0,target);
+    }
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting)setOn(e.target.id);});
+    },{rootMargin:'-30% 0px -60% 0px'});
+    document.querySelectorAll('section.chapter').forEach(function(s){io.observe(s);});
+  }
+
+
+  /* ---------- tabs ---------- */
+  var tabs=[document.getElementById('tab-guide'),document.getElementById('tab-opps')];
+  function panelOf(t){return document.getElementById(t.getAttribute('aria-controls'));}
+  function activate(tab,noScroll){
+    tabs.forEach(function(t){var on=t===tab;t.setAttribute('aria-selected',on?'true':'false');t.tabIndex=on?0:-1;panelOf(t).hidden=!on;});
+    if(!noScroll){var bar=document.getElementById('tabs');if(bar.getBoundingClientRect().top<0)bar.scrollIntoView({block:'start'});}
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){activate(t);try{history.replaceState(null,'','#'+panelOf(t).id);}catch(e){}});
+    t.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){var n=tabs[(i+1)%2];n.focus();n.click();}});
+  });
+  function goTo(id){
+    var el=document.getElementById(id);if(!el)return false;
+    var panel=el.closest('.panel');if(!panel)return false;
+    var tab=tabs.filter(function(t){return panelOf(t)===panel;})[0];
+    if(panel.hidden&&tab)activate(tab,true);
+    if(el===panel){document.getElementById('tabs').scrollIntoView({block:'start'});}else{el.scrollIntoView({block:'start'});}
+    return true;
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+    var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);
+    if(!el)return;var panel=el.closest('.panel');
+    if(panel&&panel.hidden){e.preventDefault();goTo(id);try{history.replaceState(null,'','#'+id);}catch(err){}}
+  });
+  if(location.hash.length>1){var h=location.hash.slice(1);var el0=document.getElementById(h);if(el0&&el0.closest('.panel')&&el0.closest('.panel').hidden){setTimeout(function(){goTo(h);},0);}}
+
+  /* ---------- opportunity filters ---------- */
+  var fArea='all',fWhen='all',cards=[].slice.call(document.querySelectorAll('#oppGrid .oc'));
+  function applyF(){
+    var n=0;cards.forEach(function(c){var ok=(fArea==='all'||c.dataset.area===fArea)&&(fWhen==='all'||c.dataset.when===fWhen);c.hidden=!ok;if(ok)n++;});
+    document.getElementById('oppCount').textContent='Showing '+n+' of '+cards.length+' openings';
+    document.getElementById('oppEmpty').hidden=n>0;
+  }
+  function wire(groupId,attr,setter){
+    var g=document.getElementById(groupId);
+    [].forEach.call(g.querySelectorAll('button'),function(b){b.addEventListener('click',function(){
+      [].forEach.call(g.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      setter(b.getAttribute(attr));applyF();});});
+  }
+  wire('areaChips','data-area',function(v){fArea=v;});
+  wire('whenChips','data-when',function(v){fWhen=v;});
+
+  /* ---------- glossary ---------- */
+  var G=[
+  ["AI cluster","Network","Thousands of accelerators connected so a single training or inference job can run across them."],
+  ["Hyperscaler","Business","Operator of cloud data centers at enormous scale: Amazon, Microsoft, Google, Meta, Oracle, and increasingly AI-native clouds."],
+  ["Scale-up","Network","Tightly coupled domain of GPUs/XPUs that share memory semantics and act like one large accelerator (NVLink, UALink, ESUN). Very high bandwidth, very low latency."],
+  ["Scale-out","Network","Switched network that connects many scale-up domains into a cluster, over Ethernet or InfiniBand."],
+  ["Scale-across","Network","Links between data-center halls or sites, typically kilometres apart, using long-reach and coherent optics."],
+  ["XPU","Network","Generic term for any AI accelerator: GPU, TPU, or custom ASIC."],
+  ["NVLink","Network","Nvidia's proprietary scale-up interconnect between GPUs and NVLink switches."],
+  ["InfiniBand","Network","Low-latency network fabric widely used in HPC and AI clusters; Nvidia (Mellanox) is the main supplier."],
+  ["Ethernet","Network","The dominant data-center network standard, defined by IEEE 802.3; being extended for AI by UEC and ESUN."],
+  ["Leaf-spine","Network","Two-tier (or more) switch topology where every leaf switch connects to every spine switch."],
+  ["Radix","Network","Number of ports on a switch. Higher radix means fewer switch tiers, lower latency and fewer optics."],
+  ["Optical circuit switch (OCS)","Network","Switch that steers light from one fiber port to another without converting it to electrical or reading packets. Used to rewire AI fabrics and remove switch tiers."],
+  ["Packet switch","Network","Electrical switch that reads the header of every packet and forwards it; CPO switches are packet switches."],
+  ["Clos / spine layer","Network","Multi-tier switch topology; the spine is the top tier. Google replaced its spine with OCS."],
+  ["MEMS mirror","Optics","Micro-electro-mechanical tilting mirror; arrays of them form large, low-loss optical circuit switches."],
+  ["Crosstalk","Optics","Light leaking from one path into another, in dB; a key figure for optical switches."],
+  ["SOA","Optics","Semiconductor optical amplifier; amplifies light on chip and can act as a fast optical gate."],
+  ["Front-panel / faceplate","Packaging","The front of a switch or server where pluggable modules insert; its area limits total bandwidth."],
+  ["Rack unit (RU)","Packaging","Standard height unit of a rack (1.75 in); faceplate density is quoted in Tb/s per RU."],
+
+  ["Lane","Electrical","One independent serial channel. An 800G module typically has 8 lanes of 100G; 1.6T uses 8 × 200G."],
+  ["SerDes","Electrical","Serializer/deserializer circuit on a chip that sends and receives one high-speed lane."],
+  ["NRZ","Electrical","Two-level signalling, one bit per symbol."],
+  ["PAM4","Electrical","Four-level pulse amplitude modulation, two bits per symbol. Standard for 100G and 200G lanes; more sensitive to noise than NRZ."],
+  ["Baud","Electrical","Symbols per second. 200G PAM4 runs at about 106 GBd."],
+  ["DSP","Electrical","Digital signal processor in a module that equalises, retimes and recovers the signal. Accounts for a large share of pluggable power."],
+  ["Retimer","Electrical","Circuit that recovers the clock and regenerates a clean signal; a DSP acts as one."],
+  ["CDR","Electrical","Clock and data recovery: extracting timing from the incoming signal."],
+  ["FEC","Electrical","Forward error correction: redundant bits that let the receiver correct errors, at the cost of latency and power."],
+  ["KP4 FEC","Electrical","RS(544,514) Reed-Solomon code used for 100G and 200G per lane Ethernet."],
+  ["BER","Electrical","Bit error rate. Pre-FEC BER is the raw rate; post-FEC must be extremely low (around 1e-13 to 1e-15)."],
+  ["TIA","Electrical","Transimpedance amplifier that converts the photodiode's current into a voltage."],
+  ["Driver","Electrical","Amplifier that provides the voltage swing needed by the modulator."],
+  ["Linear drive","Electrical","Design where the module has no DSP; the host SerDes compensates for the whole channel. Basis of LPO, LRO and CPO."],
+  ["Channel loss / insertion loss","Electrical","Signal attenuation from traces, connectors and cables, in dB at the Nyquist frequency."],
+
+  ["Silicon photonics (SiPh)","Optics","Optical circuits made in silicon with CMOS-style fabs: waveguides, modulators, germanium detectors. Lasers come from III-V materials."],
+  ["PIC","Optics","Photonic integrated circuit."],
+  ["EIC","Optics","Electronic integrated circuit paired with a PIC (drivers, TIAs, control)."],
+  ["InP","Optics","Indium phosphide, the III-V material for data-center lasers, EMLs and some full PIC platforms."],
+  ["CW laser","Optics","Continuous-wave laser that emits steady light; data is added by a separate modulator."],
+  ["DFB laser","Optics","Distributed-feedback laser: single-wavelength semiconductor laser used in many transceivers."],
+  ["EML","Optics","Electro-absorption modulated laser: DFB laser and EAM on one chip. Workhorse of 800G and 1.6T pluggables."],
+  ["VCSEL","Optics","Vertical-cavity surface-emitting laser. Cheap and efficient for short multimode links; candidate for scale-up optics."],
+  ["Comb laser","Optics","Source that emits many evenly spaced wavelengths at once; could replace banks of lasers in dense WDM."],
+  ["MZM","Optics","Mach-Zehnder modulator: interferometer that changes intensity through phase shift. Broadband and robust, but long."],
+  ["Ring modulator","Optics","Micro-ring resonator modulator: very compact and efficient, but strongly temperature-sensitive and needs tuning."],
+  ["EAM","Optics","Electro-absorption modulator: changes absorption with applied voltage."],
+  ["TFLN","Optics","Thin-film lithium niobate: modulator platform with very high bandwidth and low drive voltage; candidate for 400G lanes."],
+  ["BTO","Optics","Barium titanate, a strong electro-optic material being integrated on silicon for efficient modulators."],
+  ["Photodiode","Optics","Converts light to current. Germanium-on-silicon is standard in silicon photonics."],
+  ["Waveguide","Optics","On-chip structure that confines and guides light, typically silicon or silicon nitride (SiN)."],
+  ["Grating coupler","Optics","Couples light vertically between chip and fiber. Easy wafer-level test; narrower bandwidth and polarisation-dependent."],
+  ["Edge coupler","Optics","Couples light at the chip edge via a mode converter. Broadband and low-loss but harder to align and test."],
+  ["Coupling loss","Optics","Optical power lost between fiber and chip, in dB. A key CPO figure of merit."],
+  ["Single-mode fiber (SMF)","Optics","Fiber with a ~9 µm core carrying one mode; used for DR, FR, LR. Jackets are usually yellow."],
+  ["Multimode fiber (MMF)","Optics","Fiber with a 50 µm core; cheaper optics (VCSELs) but short reach. OM3/OM4 jackets are aqua."],
+  ["O-band","Optics","Wavelengths around 1260 to 1360 nm, where standard fiber has near-zero dispersion; the data-center default."],
+  ["C-band","Optics","1530 to 1565 nm, low-loss band used for long-haul and coherent links."],
+  ["WDM / CWDM / DWDM","Optics","Wavelength-division multiplexing: several wavelengths share one fiber. CWDM uses 20 nm spacing, DWDM much tighter."],
+  ["Extinction ratio","Optics","Ratio of optical power between on and off levels of a modulated signal."],
+  ["Link budget","Optics","Accounting of launch power, losses and penalties that must still leave enough power at the receiver."],
+  ["Coherent optics","Optics","Modulation of phase and amplitude with coherent detection; used for long reach (ZR, ZR+) and data-center interconnect."],
+  ["Thermo-optic coefficient","Optics","Change of refractive index with temperature (dn/dT). Positive for Si and SiN, negative for TiO₂."],
+
+  ["Pluggable transceiver","Packaging","Hot-swappable optical module that plugs into the front panel."],
+  ["OSFP / QSFP-DD","Packaging","The two main pluggable form factors for 400G to 1.6T. OSFP is larger and handles more heat."],
+  ["XPO","Packaging","Extra-dense pluggable optics: 12.8 Tb/s, 64-lane liquid-cooled module, MSA formed March 2026."],
+  ["LPO","Packaging","Linear pluggable optics: pluggable without a DSP. Lower power and latency, tighter electrical specs."],
+  ["LRO","Packaging","Linear receive optics: DSP only on the transmit side, a middle ground between retimed and LPO."],
+  ["NPO / OBO","Packaging","Near-package or on-board optics: optical engine on the board next to the ASIC package, often socketed."],
+  ["CPO","Packaging","Co-packaged optics: optical engines on the same package substrate as the switch or accelerator chip."],
+  ["Optical engine (OE)","Packaging","The integrated EIC + PIC assembly that converts electrical lanes to light in NPO/CPO."],
+  ["Optical I/O","Packaging","Optical chiplet inside the processor package, replacing electrical die-to-package I/O."],
+  ["ELS / ELSFP","Packaging","External laser source in a small form-factor pluggable on the front panel that feeds CW light to CPO engines."],
+  ["FAU","Packaging","Fiber array unit: precision-held ribbon of fibers aligned to a PIC."],
+  ["Detachable fiber connector","Packaging","Lets fibers be attached late in assembly or replaced, improving yield and serviceability."],
+  ["Shoreline / beachfront","Packaging","Length of die or package edge available for I/O; bandwidth density is quoted in Gb/s per mm."],
+  ["CoWoS","Packaging","TSMC's chip-on-wafer-on-substrate 2.5D packaging used for GPUs with HBM; also hosts CPO."],
+  ["SoIC / hybrid bonding","Packaging","3D stacking with direct copper-to-copper bonds at micron pitch; used in TSMC COUPE to stack EIC on PIC."],
+  ["COUPE","Packaging","TSMC's Compact Universal Photonic Engine platform for optical engines."],
+  ["TSV","Packaging","Through-silicon via: vertical electrical connection through a chip, enabling 3D stacking."],
+  ["Chiplet","Packaging","Small die designed to be combined with others in one package."],
+  ["OSAT","Packaging","Outsourced semiconductor assembly and test company."],
+  ["Liquid cooling / cold plate","Packaging","Coolant-fed plate on hot components; standard for CPO switches and dense racks."],
+  ["Known-good die (KGD)","Packaging","A die fully tested before assembly. Critical in CPO, where one bad engine can scrap an expensive package."],
+  ["Hermetic / passivation","Packaging","Sealing or coating that protects lasers and facets from moisture and contamination."],
+
+  ["IEEE 802.3","Standards","The Ethernet working group. 802.3df covers 800G on 100G lanes; 802.3dj covers 1.6T on 200G lanes."],
+  ["OIF","Standards","Optical Internetworking Forum: implementation agreements such as CEI electrical interfaces, the 3.2T CPO module, ELSFP and CMIS."],
+  ["CEI-224G / CEI-448G","Standards","OIF Common Electrical I/O specs for 224 and 448 Gb/s lanes."],
+  ["CMIS","Standards","Common Management Interface Specification for configuring and monitoring modules and lasers."],
+  ["MSA","Standards","Multi-source agreement: vendors agree on a common product spec so customers can dual-source."],
+  ["Open CPX MSA","Standards","Specification for socketed optical engines for CPO and NPO, formed March 2026."],
+  ["OCI MSA","Standards","Optical Compute Interconnect MSA for attaching optics to accelerators in scale-up."],
+  ["UALink","Standards","Open scale-up interconnect with memory semantics, up to 1,024 accelerators per pod."],
+  ["UEC","Standards","Ultra Ethernet Consortium, defining Ethernet transport for AI and HPC scale-out."],
+  ["ESUN","Standards","Ethernet for Scale-Up Networking, an OCP workstream adapting Ethernet for scale-up."],
+  ["UCIe","Standards","Universal Chiplet Interconnect Express, the open die-to-die interface used by optical I/O chiplets."],
+  ["OCP","Standards","Open Compute Project: hyperscaler-led open hardware community."],
+  ["Telcordia GR-468","Standards","Widely used reliability qualification standard for optoelectronic devices."],
+  ["DR / FR / LR / SR","Standards","Reach codes: SR short multimode, DR 500 m, FR 2 km, LR 10 km single-mode."],
+
+  ["pJ/bit","Business","Energy per transmitted bit (watts divided by Tb/s). The key efficiency metric."],
+  ["TCO","Business","Total cost of ownership: purchase price plus power, cooling, space, failures and labour over the lifetime."],
+  ["FIT","Business","Failures in time: failures per billion device-hours, the standard reliability unit."],
+  ["Link flap","Business","A link that briefly goes down and up. Disrupts AI training jobs; a key operational metric."],
+  ["Capex","Business","Capital expenditure; hyperscaler AI capex drives the whole optics market."],
+  ["Qualification","Business","The customer's formal testing before purchase; for hyperscalers it often takes one to three years."],
+  ["Design win","Business","Being selected into a customer's product design; the milestone that precedes volume revenue."],
+  ["MPW","Business","Multi-project wafer: shared foundry run that lets startups prototype PICs cheaply."],
+  ["Second source","Business","An alternative supplier for the same part; hyperscalers usually require one."]
+  ];
+  var cats=["All","Network","Electrical","Optics","Packaging","Standards","Business"];
+  var state={q:"",cat:"All"};
+  var chips=document.getElementById('glChips'),listEl=document.getElementById('glList'),countEl=document.getElementById('glCount'),input=document.getElementById('glSearch');
+  cats.forEach(function(c){
+    var b=document.createElement('button');b.type='button';b.textContent=c;b.id='gl-'+c.toLowerCase();
+    b.setAttribute('aria-pressed',c==='All'?'true':'false');
+    b.addEventListener('click',function(){state.cat=c;[].forEach.call(chips.children,function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});render();});
+    chips.appendChild(b);
+  });
+  G.sort(function(a,b){return a[0].localeCompare(b[0]);});
+  function render(){
+    var q=state.q.trim().toLowerCase(),n=0;
+    listEl.innerHTML='';
+    G.forEach(function(t){
+      if(state.cat!=='All'&&t[1]!==state.cat)return;
+      if(q&&(t[0]+' '+t[2]).toLowerCase().indexOf(q)<0)return;
+      n++;
+      var d=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd'),sm=document.createElement('small');
+      dt.textContent=t[0];sm.textContent=t[1];dt.appendChild(sm);dd.textContent=t[2];
+      d.appendChild(dt);d.appendChild(dd);listEl.appendChild(d);
+    });
+    countEl.textContent=n+(n===1?' term':' terms')+(state.cat!=='All'?' in '+state.cat:'')+(q?' matching “'+state.q.trim()+'”':'');
+  }
+  input.addEventListener('input',function(){state.q=input.value;render();});
+  render();
+})();
+</script>
+
+</body></html>
