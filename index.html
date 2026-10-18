@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><script>try{var t=localStorage.getItem('cpo-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>CPO Field Guide</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -224,11 +224,13 @@ ol.src a{word-break:break-word}
 
 
 /* tabs */
-.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);padding-top:14px;overflow-x:auto;scrollbar-width:none}
+.top-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--rule);padding-top:14px;flex-wrap:wrap}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{font:650 1rem var(--f-display);font-stretch:85%;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;padding:10px 14px 9px;color:var(--muted);cursor:pointer;white-space:nowrap}
 .tabs button:hover{color:var(--ink)}
 .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--smf)}
+.theme-toggle{font-size:.82rem;padding:6px 12px;margin-bottom:6px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .hero-sm h1{max-width:22ch}
 ul.plain{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:7px;color:var(--ink)}
 ul.plain li{padding-left:14px;position:relative;line-height:1.5}
@@ -257,9 +259,12 @@ footer{padding-block:40px 60px;color:var(--muted);font-size:.86rem;border-top:1p
 </style>
 
 <div class="wrap">
-<div class="tabs" id="tabs" role="tablist" aria-label="Page sections">
-  <button type="button" role="tab" id="tab-guide" aria-controls="guide" aria-selected="true">Field guide</button>
-  <button type="button" role="tab" id="tab-opps" aria-controls="opportunities" aria-selected="false">Challenges and opportunities</button>
+<div class="top-bar">
+  <div class="tabs" id="tabs" role="tablist" aria-label="Page sections">
+    <button type="button" role="tab" id="tab-guide" aria-controls="guide" aria-selected="true">Field guide</button>
+    <button type="button" role="tab" id="tab-opps" aria-controls="opportunities" aria-selected="false">Challenges and opportunities</button>
+  </div>
+  <button type="button" class="btn theme-toggle js-theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">☾ Dark mode</button>
 </div>
 <div id="guide" class="panel" role="tabpanel" aria-labelledby="tab-guide">
 <header class="hero">
@@ -283,6 +288,7 @@ footer{padding-block:40px 60px;color:var(--muted);font-size:.86rem;border-top:1p
     <button class="btn" id="toggleDeep" type="button" aria-pressed="false">Open all specialist notes</button>
     <a class="btn" href="#glossary" style="text-decoration:none">Jump to glossary</a>
     <a class="btn" href="#opportunities" style="text-decoration:none">Challenges and opportunities</a>
+    <button class="btn js-theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">☾ Dark mode</button>
   </div>
 </header>
 
@@ -1435,6 +1441,26 @@ footer{padding-block:40px 60px;color:var(--muted);font-size:.86rem;border-top:1p
 
 <script>
 (function(){
+  /* ---------- theme toggle ---------- */
+  var themeBtns=[].slice.call(document.querySelectorAll('.js-theme-toggle'));
+  function syncThemeUI(){
+    var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+    themeBtns.forEach(function(b){
+      b.setAttribute('aria-pressed',isDark?'true':'false');
+      b.textContent=isDark?'☀ Light mode':'☾ Dark mode';
+      b.setAttribute('aria-label',isDark?'Switch to light mode':'Switch to dark mode');
+    });
+  }
+  themeBtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      var next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',next);
+      try{localStorage.setItem('cpo-theme',next);}catch(e){}
+      syncThemeUI();
+    });
+  });
+  syncThemeUI();
+
   /* ---------- specialist notes toggle ---------- */
   var btn=document.getElementById('toggleDeep');
   btn.addEventListener('click',function(){
